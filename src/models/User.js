@@ -8,9 +8,9 @@ const UserSchema = new Schema({
   username: { type: String },
   is_bot: { type: Boolean, required: true },
   language_code: { type: String, required: true },
-  first_contact: { type: Date, default: Date, required: true },
+  first_contact: { type: Number, required: true },
   cookies: { type: Number, default: 1 },
-  last_crush: { type: Date }
+  last_crush: { type: Number }
 })
 
 const User = mongoose.model('user', UserSchema)
