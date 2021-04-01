@@ -2,7 +2,7 @@
  * Получить из контектса данные пользователя
  * @param {Object} ctx - контекст
  */
-const getUserInfoFromCtx = ctx => ctx.update.message.from
+const getUserInfoFromCtx = ctx => ctx?.update?.message?.from
 
 /**
  * Функция генерирует рандомное целое число [min, max]

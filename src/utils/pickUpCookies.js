@@ -1,10 +1,12 @@
 const User = require('../models/User.js')
 
-const pickUpCookies = async (userId, count) => {
-  const fondDataUser = await User.findOne({
-    id: userId
-  })
-  return User.updateOne({ id: userId }, { cookies: fondDataUser.cookies - count })
+const pickUpCookies = (userId, count) => {
+  return User.updateOne({ id: userId },
+    {
+      $inc: { cookies: -count },
+      last_crush: Date.now()
+    }
+  )
 }
 
 module.exports = pickUpCookies

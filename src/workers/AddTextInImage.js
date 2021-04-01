@@ -4,7 +4,7 @@ const sha1 = require('sha1')
 const paths = require('../constants/paths')
 const path = require('path')
 
-class WorkerThatAddTextInImage {
+class AddTextInImage {
   constructor (text) {
     this.text = text
     this.maxLengthLineTextPx = 275
@@ -14,7 +14,7 @@ class WorkerThatAddTextInImage {
     this.ctx = null
     this.lines = []
     this.objectsByLineForPrint = []
-    this.font = 'Robobto'
+    this.font = 'Fira Sans'
     this.fontWeight = 700
     this.lineWidth = 50
     this.fontSize = 12
@@ -48,7 +48,7 @@ class WorkerThatAddTextInImage {
   initCanvas () {
     this.canvas = createCanvas(this.img.width, this.img.height)
     this.ctx = this.canvas.getContext('2d')
-    this.ctx.font = `${this.fontSize}px ${this.font}`
+    this.ctx.font = `italic small-caps ${this.fontSize}px ${this.font}`
     this.ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height)
     this.ctx.fillStyle = 'rgb(0,0,0)'
   }
@@ -87,7 +87,7 @@ class WorkerThatAddTextInImage {
 
     y -= stepLine * (this.lines.length - 1) / 2
 
-    this.lines.forEach((elem, index, array) => {
+    this.lines.forEach(elem => {
       this.objectsByLineForPrint.push({ position: { x: x, y: y }, text: elem })
       y += stepLine
     })
@@ -112,4 +112,4 @@ class WorkerThatAddTextInImage {
   }
 }
 
-module.exports = WorkerThatAddTextInImage
+module.exports = AddTextInImage

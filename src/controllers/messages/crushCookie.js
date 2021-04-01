@@ -3,7 +3,7 @@ const prices = require('../../constants/prices.js')
 const errors = require('../../constants/errors.js')
 const getRandomPrediction = require('../../utils/getRandomPrediction')
 const pickUpCookies = require('../../utils/pickUpCookies')
-const WorkerThatAddTextInImage = require('../../helpers/WorkerThatAddTextInImage')
+const AddTextInImage = require('../../workers/AddTextInImage')
 const { getUserInfoFromCtx } = require('../../utils/utils')
 const fs = require('fs')
 const { Markup } = require('telegraf')
@@ -17,14 +17,20 @@ const crushCookie = async ctx => {
     if (resultPickUpCookies.ok === 1) {
       const prediction = await getRandomPrediction()
 
-      const imageCookieWithPrediction = new WorkerThatAddTextInImage(prediction.text)
+      const imageCookieWithPrediction = new AddTextInImage(prediction.text)
       const urlImageCookieWithPrediction = imageCookieWithPrediction.pathToPicture
 
       await ctx.replyWithPhoto({ source: fs.readFileSync(urlImageCookieWithPrediction) })
       await ctx.reply(
         'Сдедующая печенька будуте доступна через ЧЧ:ММ \n\nА пока поделись с друзьями!',
         Markup.inlineKeyboard([
-          Markup.button.callback('Поделиться', 'send')
+          [
+            Markup.button.callback('👎', 'badPrediction'),
+            Markup.button.callback('👍', 'goodPrediction')
+          ],
+          [
+            Markup.button.callback('Поделиться', 'send')
+          ]
         ])
       )
     } else {

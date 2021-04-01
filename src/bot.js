@@ -2,9 +2,16 @@ const TOKEN = '1718565237:AAFdUteJGx2cheprqYXAFbMn-W98nz11gEE'
 const { Telegraf } = require('telegraf')
 const start = require('./controllers/commands/start.js')
 const messagesRouter = require('./controllers/messages/messagesRouter.js')
+const subscriptionToAddCookies = require('./middlewares/subscriptionToAddCookies')
+const updateDataUserInDB = require('./middlewares/userInitialization')
 
 module.exports = () => {
   const bot = new Telegraf(TOKEN)
+
+  bot.use(updateDataUserInDB)
+  bot.use(subscriptionToAddCookies)
+
+  // bot.hears()
   bot.start(start)
   bot.on('message', messagesRouter)
 
