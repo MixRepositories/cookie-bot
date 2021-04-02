@@ -4,7 +4,7 @@ const { getUserInfoFromCtx } = require('../utils/utils')
 
 const userInitialization = async (ctx, next) => {
   const userInfo = getUserInfoFromCtx(ctx)
-  const dateContact = ctx.update.message.date * 1000
+  const dateContact = ctx.update.message?.date * 1000
   try {
     await User.create({
       id: userInfo?.id,

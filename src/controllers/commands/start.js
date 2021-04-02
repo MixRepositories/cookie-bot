@@ -8,7 +8,6 @@ const { Markup } = require('telegraf')
 
 module.exports = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)
-
   const fondDataUser = await User.findOne({
     id: userInfo?.id
   })
@@ -26,7 +25,7 @@ module.exports = async ctx => {
         Markup.button.text(balance.text),
         Markup.button.text(share.text)
       ]
-    ])
+    ]).resize()
 
     await ctx.reply(
       `You have ${fondDataUser.cookies} cookie${fondDataUser.cookies > 1 ? 's' : ''}`, keyboard

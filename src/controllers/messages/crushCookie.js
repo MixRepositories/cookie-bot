@@ -6,6 +6,7 @@ const pickUpCookies = require('../../utils/pickUpCookies')
 const AddTextInImage = require('../../workers/AddTextInImage')
 const { getUserInfoFromCtx } = require('../../utils/utils')
 const fs = require('fs')
+const { callbacks: { dislike, like, share } } = require('../../constants/inlineKeyboards')
 const { Markup } = require('telegraf')
 
 const crushCookie = async ctx => {
@@ -20,18 +21,18 @@ const crushCookie = async ctx => {
       const imageCookieWithPrediction = new AddTextInImage(prediction.text)
       const urlImageCookieWithPrediction = imageCookieWithPrediction.pathToPicture
 
-      await ctx.replyWithPhoto({ source: fs.readFileSync(urlImageCookieWithPrediction) })
-      await ctx.reply(
-        'Сдедующая печенька будуте доступна через ЧЧ:ММ \n\nА пока поделись с друзьями!',
-        Markup.inlineKeyboard([
-          [
-            Markup.button.callback('👎', 'badPrediction'),
-            Markup.button.callback('👍', 'goodPrediction')
-          ],
-          [
-            Markup.button.callback('Поделиться', 'send')
-          ]
-        ])
+      const inlineKeyboardReplyWithPhoto = Markup.inlineKeyboard([
+        [
+          Markup.button.callback(dislike.text, dislike.action),
+          Markup.button.callback(like.text, like.action)
+        ],
+        [
+          Markup.button.callback(share.text, share.action)
+        ]
+      ])
+
+      await ctx.replyWithPhoto(
+        { source: fs.readFileSync(urlImageCookieWithPrediction) }, inlineKeyboardReplyWithPhoto
       )
     } else {
       ctx.reply(errors.common)

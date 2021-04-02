@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   is_bot: { type: Boolean, required: true },
   language_code: { type: String, required: true },
   first_contact: { type: Number, required: true },
-  cookies: { type: Number, default: 1 },
+  cookies: { type: Number, default: 500 },
   last_crush: { type: Number }
 })
 
