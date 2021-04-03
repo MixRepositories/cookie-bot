@@ -5,11 +5,16 @@ const inlineKeyboards = {
     },
     like: {
       text: '👍', action: 'like'
-    },
+    }
+
+  },
+  switches: {
     share: {
-      text: 'Поделиться  📣', action: 'share'
+      text: 'Поделиться  📣',
+      message: '- это бот который дает печеньки с предсказаниями! \n\n Потрясающе!'
     }
   }
+
 }
 
 module.exports = inlineKeyboards

@@ -4,11 +4,13 @@ const errors = require('../../constants/errors')
 const { getUserInfoFromCtx } = require('../../utils/utils')
 const { crush, balance, share } = require('../../constants/keyboards.js')
 const prices = require('../../constants/prices.js')
+const workers = require('../../constants/workers')
+const { convertTime } = require('../../utils/utils')
 const { Markup } = require('telegraf')
 
 module.exports = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)
-  const fondDataUser = await User.findOne({
+  const dataUserFromDatabase = await User.findOne({
     id: userInfo?.id
   })
 
@@ -28,9 +30,10 @@ module.exports = async ctx => {
     ]).resize()
 
     await ctx.reply(
-      `You have ${fondDataUser.cookies} cookie${fondDataUser.cookies > 1 ? 's' : ''}`, keyboard
+      `You have ${dataUserFromDatabase.cookies} cookie${dataUserFromDatabase.cookies > 1 ? 's' : ''}`, keyboard
     )
   } else {
-    await ctx.reply(errors.cannotCrush('00:00:36'))
+    const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + workers.freeCookieAccrualInterval)
+    await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')))
   }
 }

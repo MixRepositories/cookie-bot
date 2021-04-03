@@ -8,21 +8,18 @@ class ControllerAutonomousWork {
   }
 
   start () {
-    this.timeCrawler()
+    this.controllerAddingCookie()
+    cron.schedule('* * * * *', async () => {
+      this.controllerAddingCookie()
+    })
   }
 
-  async timeCrawler () {
-    cron.schedule('* * * * *', async () => {
-      const dateForFilter = Date.now() - workers.freeCookieAccrualInterval
-      const fondUsers = await User.find({ last_crush: { $lte: dateForFilter } })
-      fondUsers.forEach(user => {
-        if (user.cookies < 1) {
-          this.addCookie(user.id)
-          this.sendMessage(user.id, 'added!')
-        } else {
-          this.sendMessage(user.id, ' Вас давно не было, вы можете получить новое предсказание!')
-        }
-      })
+  async controllerAddingCookie () {
+    const dateForFilter = Date.now() - workers.freeCookieAccrualInterval
+    const fondUsers = await User.find({ last_crush: { $lte: dateForFilter }, cookies: { $eq: 0 } })
+    fondUsers.forEach(user => {
+      this.addCookie(user.id)
+      this.sendMessage(user.id, 'Вам добавлена печеника! Скорее разломи ее 😊')
     })
   }
 

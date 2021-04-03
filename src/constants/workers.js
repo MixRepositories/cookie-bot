@@ -1,5 +1,5 @@
 const workers = {
-  freeCookieAccrualInterval: 3600000 // ms
+  freeCookieAccrualInterval: 360000 // ms
 }
 
 module.exports = workers

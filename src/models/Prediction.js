@@ -6,7 +6,10 @@ const PredictionSchema = new Schema({
   language: {
     ref: 'languages',
     type: Schema.Types.ObjectId
-  }
+  },
+  usersRated: [{ ref: 'user', type: Schema.Types.ObjectId, unique: true }],
+  likes: { type: Number, default: 0 },
+  dislikes: { type: Number, default: 0 }
 })
 
 const Prediction = mongoose.model('prediction', PredictionSchema)

@@ -14,19 +14,10 @@ module.exports = () => {
 
   bot.use(updateDataUserInDB)
 
-  // bot.hears()
   bot.start(start)
   bot.on('message', messagesRouter)
+  bot.action(/.+/, actionsRouter)
 
-  bot.action(/.+/, actionsRouter
-    // async ctx => {
-    // console.log(ctx)
-
-  //   return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
-  //
-  //   // await ctx.reply('👍')
-  // }
-  )
   bot.help((ctx) => ctx.reply('Send me a sticker'))
   bot.command('/url', (ctx) => ctx.reply('👍'))
   bot.hears('callback', (ctx) => ctx.reply('👍'))

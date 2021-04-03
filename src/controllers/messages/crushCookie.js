@@ -6,7 +6,10 @@ const pickUpCookies = require('../../utils/pickUpCookies')
 const AddTextInImage = require('../../workers/AddTextInImage')
 const { getUserInfoFromCtx } = require('../../utils/utils')
 const fs = require('fs')
-const { callbacks: { dislike, like, share } } = require('../../constants/inlineKeyboards')
+const workers = require('../../constants/workers')
+const User = require('../../models/User')
+const { convertTime } = require('../../utils/utils')
+const { callbacks: { dislike, like }, switches: { share } } = require('../../constants/inlineKeyboards')
 const { Markup } = require('telegraf')
 
 const crushCookie = async ctx => {
@@ -21,13 +24,21 @@ const crushCookie = async ctx => {
       const imageCookieWithPrediction = new AddTextInImage(prediction.text)
       const urlImageCookieWithPrediction = imageCookieWithPrediction.pathToPicture
 
+      const paramsForCallback = `idPrediction=${prediction._id}`
+
       const inlineKeyboardReplyWithPhoto = Markup.inlineKeyboard([
         [
-          Markup.button.callback(dislike.text, dislike.action),
-          Markup.button.callback(like.text, like.action)
+          Markup.button.callback(
+            `${dislike.text} ${prediction.dislikes}`,
+            `${dislike.action}?${paramsForCallback}&effect=dislikes`
+          ),
+          Markup.button.callback(
+            `${like.text} ${prediction.likes}`,
+            `${like.action}?${paramsForCallback}&effect=likes`
+          )
         ],
         [
-          Markup.button.callback(share.text, share.action)
+          Markup.button.switchToChat(share.text, share.message)
         ]
       ])
 
@@ -38,7 +49,9 @@ const crushCookie = async ctx => {
       ctx.reply(errors.common)
     }
   } else {
-    await ctx.reply(errors.cannotCrush('00:00:36'))
+    const dataUser = await User.findOne({ id: userInfo.id })
+    const timeBeforeAccrual = convertTime(dataUser.last_crush + workers.freeCookieAccrualInterval)
+    await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')))
   }
 }
 
