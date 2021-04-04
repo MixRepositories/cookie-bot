@@ -1,4 +1,4 @@
-const AddTextOnImage = require('../../systems/AddTextOnImage')
+const AddTextOnImage = require('../../workers/AddTextOnImage')
 const {
   callbacks: { dislike, like }, switches: { share }
 } = require('../../constants/inlineKeyboards')
