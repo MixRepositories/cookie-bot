@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const workers = require('../constants/workers')
+const systems = require('../constants/systems')
 const cron = require('node-cron')
 const getStandardKeyboard = require('../utils/getKeyboards')
 
@@ -16,7 +16,7 @@ class ControllerAutonomousWork {
   }
 
   async controllerAddingCookie () {
-    const dateForFilter = Date.now() - workers.freeCookieAccrualInterval
+    const dateForFilter = Date.now() - systems.freeCookieAccrualInterval
     const fondUsers = await User.find({ last_crush: { $lte: dateForFilter }, cookies: { $eq: 0 } })
     fondUsers.forEach(user => {
       this.addCookie(user.id)

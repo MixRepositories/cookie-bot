@@ -1,5 +1,5 @@
 const User = require('../../models/User')
-const workers = require('../../constants/workers')
+const systems = require('../../constants/systems')
 const { convertTime } = require('../../utils')
 const { getCaseCookies, getUserInfoFromCtx } = require('../../utils')
 
@@ -8,7 +8,7 @@ const findOutBalance = async (ctx) => {
   const dataUserFromDatabase = await User.findOne({ id: userInfoFromCtx.id })
   const countCookies = dataUserFromDatabase.cookies
 
-  const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + workers.freeCookieAccrualInterval)
+  const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)
 
   await ctx.reply(`У тебя ${countCookies} ${getCaseCookies(countCookies)} ${countCookies < 1 ? `\nЧерез ${timeBeforeAccrual.join(':')} будет начислена бесплатная печенька🤗` : null}
   `)

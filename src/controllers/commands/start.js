@@ -2,7 +2,7 @@ const User = require('../../models/User.js')
 const errors = require('../../constants/errors')
 const { getUserInfoFromCtx } = require('../../utils')
 const prices = require('../../constants/prices.js')
-const workers = require('../../constants/workers')
+const systems = require('../../constants/systems')
 const getStandardKeyboard = require('../../utils/getKeyboards')
 const { canCrushCookie } = require('../../utils/toolsForDatabaseWork')
 const { convertTime } = require('../../utils')
@@ -24,7 +24,7 @@ module.exports = async ctx => {
       `У тебя есть ${dataUserFromDatabase.cookies} печенька`, standardKeyBoard
     )
   } else {
-    const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + workers.freeCookieAccrualInterval)
+    const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)
     await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')), standardKeyBoard)
   }
 }

@@ -1,11 +1,11 @@
-const AddTextInImage = require('../../workers/AddTextInImage')
+const AddTextInImage = require('../../systems/AddTextInImage')
 const {
   callbacks: { dislike, like }, switches: { share }
 } = require('../../constants/inlineKeyboards')
 const { getUserInfoFromCtx } = require('../../utils')
 const prices = require('../../constants/prices.js')
 const errors = require('../../constants/errors.js')
-const workers = require('../../constants/workers')
+const systems = require('../../constants/systems')
 const {
   getRandomPrediction, canCrushCookie, pickUpCookies
 } = require('../../utils/toolsForDatabaseWork')
@@ -52,7 +52,7 @@ const crushCookie = async ctx => {
     }
   } else {
     const dataUser = await User.findOne({ id: userInfo.id })
-    const timeBeforeAccrual = convertTime(dataUser.last_crush + workers.freeCookieAccrualInterval)
+    const timeBeforeAccrual = convertTime(dataUser.last_crush + systems.freeCookieAccrualInterval)
     await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')))
   }
 }
