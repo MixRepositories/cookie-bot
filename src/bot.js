@@ -3,7 +3,7 @@ const { Telegraf } = require('telegraf')
 const start = require('./controllers/commands/start.js')
 const messagesRouter = require('./controllers/messages/messagesRouter.js')
 const updateDataUserInDB = require('./middlewares/userInitialization')
-const ControllerAutonomousWork = require('./systems/ControllerAutonomousWork')
+const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
 const actionsRouter = require('./controllers/actions/actionsRouter')
 
 module.exports = () => {
