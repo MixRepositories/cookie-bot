@@ -6,6 +6,7 @@ const path = require('path')
 
 class AddTextOnImage {
   constructor (text) {
+    console.log(text)
     this.text = text
     this.maxLengthLineTextPx = 275
     this.textByWords = []
@@ -15,8 +16,6 @@ class AddTextOnImage {
     this.lines = []
     this.objectsByLineForPrint = []
     this.font = 'Fira Sans'
-    this.fontWeight = 700
-    this.lineWidth = 50
     this.fontSize = 12
     this.lineHeight = 1.3
     this.pathToTemplate = path.resolve() + paths.pathToTemplateCookieImage
