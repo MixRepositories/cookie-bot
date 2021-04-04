@@ -1,5 +1,5 @@
 const User = require('../../models/User')
-const { getCaseCookies, getUserInfoFromCtx } = require('../../utils/utils')
+const { getCaseCookies, getUserInfoFromCtx } = require('../../utils')
 
 const findOutBalance = async (ctx) => {
   const userInfoFromCtx = getUserInfoFromCtx(ctx)

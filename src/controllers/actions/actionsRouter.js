@@ -1,5 +1,5 @@
 const ratePrediction = require('./ratePrediction')
-const { parseQueryCallback } = require('../../utils/utils')
+const { parseQueryCallback } = require('../../utils')
 const { callbacks: { dislike, like } } = require('../../constants/inlineKeyboards')
 
 const actionsRouter = async ctx => {

@@ -1,6 +1,6 @@
 const User = require('../models/User')
-const updateUserData = require('../utils/updateUserData')
-const { getUserInfoFromCtx } = require('../utils/utils')
+const { updateUserData } = require('../utils/toolsForDatabaseWork')
+const { getUserInfoFromCtx } = require('../utils')
 
 const userInitialization = async (ctx, next) => {
   const userInfo = getUserInfoFromCtx(ctx)

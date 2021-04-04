@@ -1,16 +1,18 @@
-const canCrushCookie = require('../../utils/canCrushCookie.js')
+const AddTextInImage = require('../../workers/AddTextInImage')
+const {
+  callbacks: { dislike, like }, switches: { share }
+} = require('../../constants/inlineKeyboards')
+const { getUserInfoFromCtx } = require('../../utils')
 const prices = require('../../constants/prices.js')
 const errors = require('../../constants/errors.js')
-const getRandomPrediction = require('../../utils/getRandomPrediction')
-const pickUpCookies = require('../../utils/pickUpCookies')
-const AddTextInImage = require('../../workers/AddTextInImage')
-const { getUserInfoFromCtx } = require('../../utils/utils')
-const fs = require('fs')
 const workers = require('../../constants/workers')
+const {
+  getRandomPrediction, canCrushCookie, pickUpCookies
+} = require('../../utils/toolsForDatabaseWork')
+const { convertTime } = require('../../utils')
 const User = require('../../models/User')
-const { convertTime } = require('../../utils/utils')
-const { callbacks: { dislike, like }, switches: { share } } = require('../../constants/inlineKeyboards')
 const { Markup } = require('telegraf')
+const fs = require('fs')
 
 const crushCookie = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)

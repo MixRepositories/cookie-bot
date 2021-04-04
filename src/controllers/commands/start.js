@@ -1,11 +1,11 @@
 const User = require('../../models/User.js')
-const canCrushCookie = require('../../utils/canCrushCookie.js')
 const errors = require('../../constants/errors')
-const { getUserInfoFromCtx } = require('../../utils/utils')
+const { getUserInfoFromCtx } = require('../../utils')
 const prices = require('../../constants/prices.js')
 const workers = require('../../constants/workers')
 const getStandardKeyboard = require('../../utils/getKeyboards')
-const { convertTime } = require('../../utils/utils')
+const { canCrushCookie } = require('../../utils/toolsForDatabaseWork')
+const { convertTime } = require('../../utils')
 
 module.exports = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)
