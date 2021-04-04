@@ -14,17 +14,17 @@ module.exports = async ctx => {
   })
 
   if (ctx.isNewUser) {
-    await ctx.reply('!!!WELCOME in our game!!! \nYou can crush cookie and get preparation')
+    await ctx.reply(`Добро пожаловать ${userInfo?.first_name}! \nРазломи печеньку и узнай свое предсказание на день 🧝`)
   }
 
-  if (await canCrushCookie(userInfo.id, prices.standard)) {
-    const standardKeyBoard = getStandardKeyboard()
+  const standardKeyBoard = getStandardKeyboard()
 
+  if (await canCrushCookie(userInfo.id, prices.standard)) {
     await ctx.reply(
-      `You have ${dataUserFromDatabase.cookies} cookie${dataUserFromDatabase.cookies > 1 ? 's' : ''}`, standardKeyBoard
+      `У тебя есть ${dataUserFromDatabase.cookies} печенька`, standardKeyBoard
     )
   } else {
     const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + workers.freeCookieAccrualInterval)
-    await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')))
+    await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')), standardKeyBoard)
   }
 }

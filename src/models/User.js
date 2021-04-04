@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   last_name: { type: String },
   username: { type: String },
   is_bot: { type: Boolean, required: true },
-  language_code: { type: String, required: true },
+  language_code: { ref: 'language', type: Schema.Types.ObjectId, default: '6069565ab108ae6c5de0443b' },
   first_contact: { type: Number, required: true },
   cookies: { type: Number, default: 1 },
   last_crush: { type: Number }

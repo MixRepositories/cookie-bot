@@ -18,9 +18,5 @@ module.exports = () => {
   bot.on('message', messagesRouter)
   bot.action(/.+/, actionsRouter)
 
-  bot.help((ctx) => ctx.reply('Send me a sticker'))
-  bot.command('/url', (ctx) => ctx.reply('👍'))
-  bot.hears('callback', (ctx) => ctx.reply('👍'))
-  bot.hears('hi', (ctx) => ctx.reply('Hey there'))
   bot.launch()
 }

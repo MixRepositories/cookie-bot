@@ -1,4 +1,4 @@
-const { crush, balance, share } = require('../../constants/keyboards.js')
+const { crush, balance } = require('../../constants/keyboards.js')
 const crushCookie = require('./crushCookie')
 const findOutBalance = require('./findOutBalance')
 
@@ -9,9 +9,6 @@ const messagesRouter = async (ctx) => {
       break
     case balance.text:
       await findOutBalance(ctx)
-      break
-    case share.text:
-      ctx.reply(share)
       break
   }
 }

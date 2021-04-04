@@ -1,14 +1,17 @@
 const User = require('../models/User.js')
 const Prediction = require('../models/Prediction')
+const Language = require('../models/Language')
 const { randomInt } = require('./index')
 
 const updateUserData = async userInfo => {
-  await User.updateOne({ id: userInfo?.id }, {
+  const langCode = await Language.findOne({ code: userInfo?.language_code })
+
+  return User.updateOne({ id: userInfo?.id }, {
     first_name: userInfo?.first_name,
     last_name: userInfo?.last_name,
     username: userInfo?.username,
     is_bot: userInfo?.is_bot,
-    language_code: userInfo?.language_code
+    language_code: langCode?._id
   })
 }
 

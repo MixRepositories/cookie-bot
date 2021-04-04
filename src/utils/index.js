@@ -5,7 +5,10 @@ const _fromPairs = require('lodash/fromPairs')
  * @param {Object} ctx - контекст
  */
 const getUserInfoFromCtx = ctx => (
-  ctx?.update?.message?.from ?? ctx?.update?.callback_query?.from)
+  ctx?.update?.message?.from ||
+  ctx?.update?.callback_query?.from ||
+  ctx?.update?.my_chat_member?.from
+)
 
 /**
  * Функция генерирует рандомное целое число [min, max]
