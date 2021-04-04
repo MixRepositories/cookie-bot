@@ -1,4 +1,4 @@
-const AddTextInImage = require('../../systems/AddTextInImage')
+const AddTextOnImage = require('../../systems/AddTextOnImage')
 const {
   callbacks: { dislike, like }, switches: { share }
 } = require('../../constants/inlineKeyboards')
@@ -23,7 +23,7 @@ const crushCookie = async ctx => {
     if (resultPickUpCookies.ok === 1) {
       const prediction = await getRandomPrediction()
 
-      const imageCookieWithPrediction = new AddTextInImage(prediction.text)
+      const imageCookieWithPrediction = new AddTextOnImage(prediction.text)
       const urlImageCookieWithPrediction = imageCookieWithPrediction.pathToPicture
 
       const paramsForCallback = `idPrediction=${prediction._id}`

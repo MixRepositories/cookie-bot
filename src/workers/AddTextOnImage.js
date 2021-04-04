@@ -4,7 +4,7 @@ const sha1 = require('sha1')
 const paths = require('../constants/paths')
 const path = require('path')
 
-class AddTextInImage {
+class AddTextOnImage {
   constructor (text) {
     this.text = text
     this.maxLengthLineTextPx = 275
@@ -112,4 +112,4 @@ class AddTextInImage {
   }
 }
 
-module.exports = AddTextInImage
+module.exports = AddTextOnImage
