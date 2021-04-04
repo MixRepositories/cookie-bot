@@ -6,7 +6,6 @@ const path = require('path')
 
 class AddTextOnImage {
   constructor (text) {
-    console.log(text)
     this.text = text
     this.maxLengthLineTextPx = 275
     this.textByWords = []
