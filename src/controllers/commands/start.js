@@ -2,11 +2,10 @@ const User = require('../../models/User.js')
 const canCrushCookie = require('../../utils/canCrushCookie.js')
 const errors = require('../../constants/errors')
 const { getUserInfoFromCtx } = require('../../utils/utils')
-const { crush, balance, share } = require('../../constants/keyboards.js')
 const prices = require('../../constants/prices.js')
 const workers = require('../../constants/workers')
+const getStandardKeyboard = require('../../utils/getKeyboards')
 const { convertTime } = require('../../utils/utils')
-const { Markup } = require('telegraf')
 
 module.exports = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)
@@ -19,18 +18,10 @@ module.exports = async ctx => {
   }
 
   if (await canCrushCookie(userInfo.id, prices.standard)) {
-    const keyboard = Markup.keyboard([
-      [
-        Markup.button.text(crush.text)
-      ],
-      [
-        Markup.button.text(balance.text),
-        Markup.button.text(share.text)
-      ]
-    ]).resize()
+    const standardKeyBoard = getStandardKeyboard()
 
     await ctx.reply(
-      `You have ${dataUserFromDatabase.cookies} cookie${dataUserFromDatabase.cookies > 1 ? 's' : ''}`, keyboard
+      `You have ${dataUserFromDatabase.cookies} cookie${dataUserFromDatabase.cookies > 1 ? 's' : ''}`, standardKeyBoard
     )
   } else {
     const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + workers.freeCookieAccrualInterval)

@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const workers = require('../constants/workers')
 const cron = require('node-cron')
+const getStandardKeyboard = require('../utils/getKeyboards')
 
 class ControllerAutonomousWork {
   constructor ({ bot }) {
@@ -19,7 +20,8 @@ class ControllerAutonomousWork {
     const fondUsers = await User.find({ last_crush: { $lte: dateForFilter }, cookies: { $eq: 0 } })
     fondUsers.forEach(user => {
       this.addCookie(user.id)
-      this.sendMessage(user.id, 'Вам добавлена печеника! Скорее разломи ее 😊')
+      const standardKeyBoard = getStandardKeyboard()
+      this.sendMessage(user.id, 'Вам добавлена печеника! Скорее разломи ее 😊', standardKeyBoard)
     })
   }
 
@@ -31,8 +33,8 @@ class ControllerAutonomousWork {
     }
   }
 
-  async sendMessage (id, message) {
-    await this.bot.telegram.sendMessage(id, message)
+  async sendMessage (id, message, keyboard) {
+    await this.bot.telegram.sendMessage(id, message, keyboard)
   }
 }
 
