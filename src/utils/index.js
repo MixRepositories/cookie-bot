@@ -19,7 +19,7 @@ function randomInt (min, max) {
 }
 
 // TODO: Реализовать функционал по определению падежа
-function getCaseCookies (count) {
+function getCaseCookies () {
   return 'печенек'
 }
 
