@@ -1,6 +1,6 @@
 const paths = {
-  pathToTemplateCookieImage: '/assets/images/cookieTemplate.png',
-  pathToSaveUpgradedCookieImage: '/assets/result'
+  pathToTemplateCookieImage: '/bot/assets/images/cookieTemplate.png',
+  pathToSaveUpgradedCookieImage: '/bot/assets/result'
 }
 
 module.exports = paths
