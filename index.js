@@ -1,5 +1,5 @@
 const db = require('./db')
-const bot = require('./src/bot')
+const bot = require('./bot')
 
 db
   .then(() => {

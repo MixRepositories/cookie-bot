@@ -4,9 +4,9 @@
   "description": "cookei bot for send predictions",
   "main": "index.js",
   "scripts": {
-    "start-prod": "pm2 start 'node index.js'",
+    "start-prod": "cross-env NODE_ENV=production node index.js",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/cheprasov-dev/cookie-bot#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",

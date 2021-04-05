@@ -10,4 +10,4 @@ package-lock.json
 .eslintrc.json
 
 # image with text on cookieTemplate
-/src/assets/result
+/assets/result
