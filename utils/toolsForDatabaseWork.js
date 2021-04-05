@@ -1,6 +1,6 @@
-const User = require('../models/User.js')
-const Prediction = require('../models/Prediction')
-const Language = require('../models/Language')
+const User = require('../db/models/User.js')
+const Prediction = require('../db/models/Prediction')
+const Language = require('../db/models/Language')
 const { randomInt } = require('./index')
 
 const updateUserData = async userInfo => {

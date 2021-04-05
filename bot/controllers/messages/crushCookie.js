@@ -2,15 +2,15 @@ const AddTextOnImage = require('../../workers/AddTextOnImage')
 const {
   callbacks: { dislike, like }, switches: { share }
 } = require('../../constants/inlineKeyboards')
-const { getUserInfoFromCtx } = require('../../utils')
+const { getUserInfoFromCtx } = require('../../../utils')
 const prices = require('../../constants/prices.js')
 const errors = require('../../constants/errors.js')
 const systems = require('../../constants/systems')
 const {
   getRandomPrediction, canCrushCookie, pickUpCookies
-} = require('../../utils/toolsForDatabaseWork')
-const { convertTime } = require('../../utils')
-const User = require('../../models/User')
+} = require('../../../utils/toolsForDatabaseWork')
+const { convertTime } = require('../../../utils')
+const User = require('../../../db/models/User')
 const { Markup } = require('telegraf')
 const fs = require('fs')
 

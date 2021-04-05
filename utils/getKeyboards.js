@@ -1,6 +1,6 @@
 const { Markup } = require('telegraf')
-const { balance } = require('../constants/keyboards')
-const { crush } = require('../constants/keyboards')
+const { balance } = require('../bot/constants/keyboards')
+const { crush } = require('../bot/constants/keyboards')
 
 const getStandardKeyboard = () => {
   return Markup.keyboard([

@@ -1,7 +1,7 @@
-const User = require('../models/User')
-const Language = require('../models/Language')
-const { updateUserData } = require('../utils/toolsForDatabaseWork')
-const { getUserInfoFromCtx } = require('../utils')
+const User = require('../../db/models/User')
+const Language = require('../../db/models/Language')
+const { updateUserData } = require('../../utils/toolsForDatabaseWork')
+const { getUserInfoFromCtx } = require('../../utils')
 
 const userInitialization = async (ctx, next) => {
   const userInfo = getUserInfoFromCtx(ctx)

@@ -1,6 +1,6 @@
-const Prediction = require('../../models/Prediction')
-const User = require('../../models/User')
-const { getUserInfoFromCtx } = require('../../utils')
+const Prediction = require('../../../db/models/Prediction')
+const User = require('../../../db/models/User')
+const { getUserInfoFromCtx } = require('../../../utils')
 const { Markup } = require('telegraf')
 const { callbacks: { dislike, like }, switches: { share } } = require('../../constants/inlineKeyboards')
 
