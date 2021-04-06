@@ -13,8 +13,8 @@ exports.updateAll = async (req, res) => {
 
   const sheetUser = table.sheetsById[sheetUsersId]
   const dataUsers = await User.find({})
-  const headerUsers = ['ObjectId', 'tgId', 'languageCode', 'firstContact', 'lastCrush']
-  const sourceUsers = ['_id', 'id', 'language_code', 'first_contact', 'last_crush']
+  const headerUsers = ['ObjectId', 'tgId', 'languageCode', 'firstContact', 'lastCrush', 'countCrush']
+  const sourceUsers = ['_id', 'id', 'language_code', 'first_contact', 'last_crush', 'count_crush']
   await updateSheets(sheetUser, headerUsers, sourceUsers, dataUsers)
 
   const sheetPredictions = table.sheetsById[sheetPredictionsId]
