@@ -23,5 +23,5 @@ exports.updateAll = async (req, res) => {
   const sourcePredictions = ['_id', 'likes', 'dislikes']
   await updateSheets(sheetPredictions, headerPredictions, sourcePredictions, dataPredictions)
 
-  res.send({ method: 'GET', type: 'all', api: '/analytics/update-all' })
+  res.send({ method: 'GET', status: 'ok', api: '/analytics/update-all' })
 }

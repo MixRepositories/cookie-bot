@@ -6,6 +6,7 @@ module.exports = () => {
   const PORT = config.get('port')
 
   app.use('/api', require('./api/analytics.js'))
+  app.use('/api', require('./api/helpers.js'))
 
   app.listen(PORT, () => {
     console.log(`Server started by PORT: ${PORT} ...`)

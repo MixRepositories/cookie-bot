@@ -9,9 +9,7 @@ const findOutBalance = async (ctx) => {
   const countCookies = dataUserFromDatabase.cookies
 
   const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)
-
-  await ctx.reply(`У тебя ${countCookies} ${getCaseCookies(countCookies)} ${countCookies < 1 ? `\nЧерез ${timeBeforeAccrual.join(':')} будет начислена бесплатная печенька🤗` : null}
-  `)
+  await ctx.reply(`У тебя ${countCookies} ${getCaseCookies(countCookies)} ${countCookies < 1 ? `\nЧерез ${timeBeforeAccrual.join(':')} будет начислена бесплатная печенька🤗` : ''}`)
 }
 
 module.exports = findOutBalance
