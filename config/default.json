@@ -1,4 +1,11 @@
 {
   "tokenBot": "1699747972:AAFpO9ak62h68lbSSRbgmKpTiLKhnNnMWb4",
-  "port": 3030
+  "port": 3030,
+  "analytics": {
+    "googleTable": "1rMxiynFgr-l3ZUhGYnVkXpButT5uv1tTKOpQGgjw6tE",
+    "googleSheet": {
+      "users": 771004730,
+      "predictions": 696776161
+    }
+  }
 }

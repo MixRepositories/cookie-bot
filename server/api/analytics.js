@@ -1,7 +1,7 @@
 const express = require('express')
-const { all } = require('../controllers/analytics')
+const { updateAll } = require('../controllers/analytics')
 const router = express.Router()
 
-router.get('/analytics', all)
+router.get('/analytics/update-all', updateAll)
 
 module.exports = router
