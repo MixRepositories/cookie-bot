@@ -10,7 +10,8 @@ const UserSchema = new Schema({
   language_code: { ref: 'language', type: Schema.Types.ObjectId },
   first_contact: { type: Number, required: true },
   cookies: { type: Number, default: 1 },
-  last_crush: { type: Number }
+  last_crush: { type: Number },
+  count_crush: { type: Number, default: 0 }
 })
 
 const User = mongoose.model('user', UserSchema)

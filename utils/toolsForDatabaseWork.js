@@ -18,7 +18,7 @@ const updateUserData = async userInfo => {
 const pickUpCookies = (userId, count) => {
   return User.updateOne({ id: userId },
     {
-      $inc: { cookies: -count },
+      $inc: { cookies: -count, count_crush: 1 },
       last_crush: Date.now()
     }
   )
