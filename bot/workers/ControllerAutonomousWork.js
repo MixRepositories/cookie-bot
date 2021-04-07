@@ -2,12 +2,11 @@ const User = require('../../db/models/User')
 const systems = require('../constants/systems')
 const cron = require('node-cron')
 const getStandardKeyboard = require('../../utils/getKeyboards')
-const { addCookies } = require('../../utils/toolsForDatabaseWork')
+const { addCookiesToUser } = require('../../utils/toolsForDatabaseWork')
 
 class ControllerAutonomousWork {
   constructor ({ bot }) {
     this.bot = bot
-    this.isSendPromo = false
   }
 
   start () {
@@ -21,7 +20,7 @@ class ControllerAutonomousWork {
     const dateForFilter = Date.now() - systems.freeCookieAccrualInterval
     const fondUsers = await User.find({ last_crush: { $lte: dateForFilter }, cookies: { $eq: 0 } })
     fondUsers.forEach(user => {
-      addCookies(user.id, 1)
+      addCookiesToUser(user.id, 1)
       const standardKeyBoard = getStandardKeyboard()
       this.sendMessage(user.id, 'Вам добавлена печеника! Скорее разломи ее 😊', standardKeyBoard)
     })

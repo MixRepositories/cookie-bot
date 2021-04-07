@@ -43,10 +43,8 @@ class Bot {
     this.bot.launch()
   }
 
-  async sendMailing (users, message, keyboard) {
-    await Promise.all(users.map(async user => {
-      await this.bot.telegram.sendMessage(user.id, message, keyboard)
-    }))
+  async sendMailing (id, message, keyboard) {
+    await this.bot.telegram.sendMessage(id, message, keyboard)
   }
 }
 
