@@ -38,9 +38,14 @@ const canCrushCookie = async (userId, price) => {
   return fondDataUser.cookies >= price
 }
 
+const addCookies = async (id, count) => {
+  await User.updateOne({ id }, { $inc: { cookies: count } })
+}
+
 module.exports = {
   getRandomPrediction,
   updateUserData,
   canCrushCookie,
-  pickUpCookies
+  pickUpCookies,
+  addCookies
 }
