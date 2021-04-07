@@ -6,9 +6,9 @@ const { updateSheets } = require('../../utils/googleSheets/analytics/analytics')
 const moment = require('moment')
 
 exports.updateAll = async (req, res) => {
-  const tableId = config.get('analytics.googleTable')
-  const sheetUsersId = config.get('analytics.googleSheet.users')
-  const sheetPredictionsId = config.get('analytics.googleSheet.predictions')
+  const tableId = config.get('googleTables.analytics_GT')
+  const sheetUsersId = config.get('googleTables.analytics_GS.users')
+  const sheetPredictionsId = config.get('googleTables.analytics_GS.predictions')
 
   const table = await googleSheetsInit(tableId)
 

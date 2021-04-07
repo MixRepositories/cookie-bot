@@ -1,11 +1,15 @@
 {
   "tokenBot": "1699747972:AAFpO9ak62h68lbSSRbgmKpTiLKhnNnMWb4",
   "port": 3030,
-  "analytics": {
-    "googleTable": "1rMxiynFgr-l3ZUhGYnVkXpButT5uv1tTKOpQGgjw6tE",
-    "googleSheet": {
+  "googleTables": {
+    "analytics_GT": "1rMxiynFgr-l3ZUhGYnVkXpButT5uv1tTKOpQGgjw6tE",
+    "analytics_GS": {
       "users": 771004730,
       "predictions": 696776161
+    },
+    "predictions_GT": "1AloX3DNBtVtzIlaT4pHHtL_PKumXi6_RoKyAwEOJngs",
+    "predictions_GS": {
+      "texts": 1456277043
     }
   }
 }
