@@ -6,19 +6,48 @@ const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
 const actionsRouter = require('./controllers/actions/actionsRouter')
 const config = require('config')
 
-module.exports = () => {
-  const TOKEN = config.get('tokenBot')
+class Bot {
+  constructor () {
+    if (Bot.exists) { return Bot.instance }
 
-  const bot = new Telegraf(TOKEN)
+    this.token = config.get('tokenBot')
 
-  const controller = new ControllerAutonomousWork({ bot })
-  controller.start()
+    this.init()
 
-  bot.use(updateDataUserInDB)
+    Bot.instance = this
+    Bot.exists = true
+  }
 
-  bot.start(start)
-  bot.on('message', messagesRouter)
-  bot.action(/.+/, actionsRouter)
+  init () {
+    this.initBot()
+    this.initControllerAutonomousWork()
+    this.startBotController()
+  }
 
-  bot.launch()
+  initBot () {
+    this.bot = new Telegraf(this.token)
+  }
+
+  initControllerAutonomousWork () {
+    const controller = new ControllerAutonomousWork({ bot: this.bot })
+    controller.start()
+  }
+
+  startBotController () {
+    this.bot.use(updateDataUserInDB)
+
+    this.bot.start(start)
+    this.bot.on('message', messagesRouter)
+    this.bot.action(/.+/, actionsRouter)
+
+    this.bot.launch()
+  }
+
+  async sendMailing (users, message, keyboard) {
+    await Promise.all(users.map(async user => {
+      await this.bot.telegram.sendMessage(user.id, message, keyboard)
+    }))
+  }
 }
+
+module.exports = Bot

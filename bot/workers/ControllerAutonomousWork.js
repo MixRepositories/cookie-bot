@@ -6,6 +6,7 @@ const getStandardKeyboard = require('../../utils/getKeyboards')
 class ControllerAutonomousWork {
   constructor ({ bot }) {
     this.bot = bot
+    this.isSendPromo = false
   }
 
   start () {
