@@ -32,8 +32,8 @@ function getCaseCookies () {
  * @returns {{action: string, params: {}}}
  */
 const parseQueryCallback = (queryCallback) => {
-  const [action, mergedParams] = queryCallback.split('?')
-  const arrayParams = mergedParams.split('&').map(elem => {
+  const [action, mergedParams] = queryCallback?.split('?')
+  const arrayParams = mergedParams?.split('&')?.map(elem => {
     return elem.split('=')
   })
   const params = _fromPairs(arrayParams)
@@ -41,7 +41,7 @@ const parseQueryCallback = (queryCallback) => {
 }
 
 /**
- * переводит общее количества секунд в формат 00:00:00
+ * переводит общее количества секунд в формат ['00', '00', '00', '00']
  * @param {number} time - время в ms
  * @returns {[string, string, string, string]}
  */
@@ -60,6 +60,7 @@ const convertTime = time => {
     timestamp -= minutes * 60
     const seconds = Math.abs(timestamp) % 60
     return [
+      days.toString().padStart(2, '0'),
       hours.toString().padStart(2, '0'),
       minutes.toString().padStart(2, '0'),
       seconds.toString().padStart(2, '0')
@@ -67,10 +68,15 @@ const convertTime = time => {
   }
 }
 
+const joinDateForMessage = array => {
+  const time = array.slice(1)
+  return `${array[0]} дней ${time.join(':')}`
+}
+
 module.exports = {
   parseQueryCallback,
   getUserInfoFromCtx,
-  getCaseCookies,
+  joinDateForMessage,
   convertTime,
   randomInt
 }

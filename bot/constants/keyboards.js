@@ -1,7 +1,8 @@
 const keyboards = {
   crush: { text: 'Разломить ️🥠' },
-  balance: { text: 'Узнать остаток' },
-  share: { text: 'Поделиться 💬' }
+  balance: { text: 'Узнать баланс' },
+  share: { text: 'Поделиться 💬' },
+  lotteryTicket: { text: 'Получить лотирейный 🎫' }
 }
 
 module.exports = keyboards

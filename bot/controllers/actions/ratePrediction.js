@@ -45,6 +45,8 @@ const ratePrediction = async ({ ctx, params, likes, dislikes }) => {
     await ctx.editMessageReplyMarkup({
       inline_keyboard: inlineKeyboardReplyWithPhoto
     })
+    await ctx.answerCbQuery('')
+
     await ctx.answerCbQuery('Ваше оценка принята')
   } else {
     await ctx.answerCbQuery('Вы оценивали ранее')

@@ -1,6 +1,7 @@
 const ratePrediction = require('./ratePrediction')
+const eraseTicket = require('./eraseTicket')
 const { parseQueryCallback } = require('../../../utils')
-const { callbacks: { dislike, like } } = require('../../constants/inlineKeyboards')
+const { callbacks: { dislike, like, erase } } = require('../../constants/inlineKeyboards')
 
 const actionsRouter = async ctx => {
   const { action, params } = parseQueryCallback(ctx.match[0])
@@ -10,6 +11,9 @@ const actionsRouter = async ctx => {
       break
     case like.action:
       await ratePrediction({ ctx, params, likes: 1, dislikes: 0 })
+      break
+    case erase.action:
+      await eraseTicket({ ctx, params })
       break
   }
 }
