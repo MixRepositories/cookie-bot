@@ -66,7 +66,7 @@ const convertTime = time => {
 
 const joinDateForMessage = array => {
   const time = array.slice(1)
-  return `${array[0]} дней ${time.join(':')}`
+  return `${declOfNumDays(array[0])} ${time.join(':')}`
 }
 
 function declOfNum (number, titles, returnString) {
@@ -85,6 +85,11 @@ function declOfNum (number, titles, returnString) {
 
 const declOfNumCookies = (number) => {
   const titles = ['печенька', 'печеньки', 'печенек']
+  const returnString = true
+  return declOfNum(number, titles, returnString)
+}
+const declOfNumDays = (number) => {
+  const titles = ['день', 'дня', 'дней']
   const returnString = true
   return declOfNum(number, titles, returnString)
 }
