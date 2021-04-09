@@ -14,7 +14,7 @@ const findOutBalance = async (ctx) => {
   const timeBeforeAccrualLotteryTicket = convertTime(dataUserFromDatabase.last_erase + systems.freeLotteryTicketInterval)
 
   await ctx.reply(
-    `Ваш баланс: \nПеченек - ${countCookies} 🥠 \nЛотерейных билетов - ${lotteryTickets} 🎫 \n\n` +
+    `Ваш баланс: \nПеченьки - ${countCookies} 🥠 \nЛотерейные билеты - ${lotteryTickets} 🎫 \n\n` +
    `${countCookies < 1 ? `\nЧерез ${joinDateForMessage(timeBeforeAccrualCookie)} будет начислена бесплатная печенька 🤗\n` : ''}` +
    `${lotteryTickets < 1 ? `\nЧерез ${joinDateForMessage(timeBeforeAccrualLotteryTicket)} будет начислен бесплатный лотерейный билет 🥳` : ''}`
   )

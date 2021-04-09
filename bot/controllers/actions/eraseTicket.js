@@ -18,7 +18,7 @@ const eraseTicket = async ({ ctx, params }) => {
       const inlineKeyboardReply = [
         [
           Markup.button.callback(
-              `Ваш выйгрыш: ${dataTicket.prize} 🥠`,
+              `🎊 Ваш выйгрыш: ${dataTicket.prize} 🥠 🎊`,
               `${erase.action}?ticket=${dataTicket.id}`
           )
         ]

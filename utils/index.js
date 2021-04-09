@@ -1,4 +1,5 @@
 const _fromPairs = require('lodash/fromPairs')
+const _isUndefined = require('lodash/isUndefined')
 
 /**
  * Получить из контектса данные пользователя
@@ -19,11 +20,6 @@ const getUserInfoFromCtx = ctx => (
  */
 function randomInt (min, max) {
   return min + Math.floor((max + 1 - min) * Math.random())
-}
-
-// TODO: Реализовать функционал по определению падежа
-function getCaseCookies () {
-  return 'печенек'
 }
 
 /**
@@ -73,10 +69,32 @@ const joinDateForMessage = array => {
   return `${array[0]} дней ${time.join(':')}`
 }
 
+function declOfNum (number, titles, returnString) {
+  if (!_isUndefined(number) && !_isUndefined(titles)) {
+    const cases = [2, 0, 1, 1, 1, 2]
+    const title = titles[
+      number % 100 > 4 && number % 100 < 20
+        ? 2
+        : cases[number % 10 < 5 ? number % 10 : 5]
+    ]
+    if (returnString) {
+      return `${number} ${title}`
+    } else return title
+  }
+}
+
+const declOfNumCookies = (number) => {
+  const titles = ['печенька', 'печеньки', 'печенек']
+  const returnString = true
+  return declOfNum(number, titles, returnString)
+}
+
 module.exports = {
   parseQueryCallback,
   getUserInfoFromCtx,
   joinDateForMessage,
+  declOfNumCookies,
   convertTime,
+  declOfNum,
   randomInt
 }

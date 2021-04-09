@@ -9,7 +9,6 @@ module.exports = () => {
 
   app.use('/api', require('./api/analytics.js'))
   app.use('/api', require('./api/helpers.js'))
-  app.use('/api', require('./api/mailings.js'))
 
   app.listen(PORT, () => {
     console.log(`Server started by PORT: ${PORT} ...`)

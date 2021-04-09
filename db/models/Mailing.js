@@ -2,8 +2,11 @@ const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 
 const MailingSchema = new Schema({
-  name: { type: String, required: true, unique: true },
-  active: { type: Boolean, default: true }
+  status: { type: Boolean, default: true },
+  text: String,
+  buttons: { type: String, default: '{}' },
+  delivery_date: { type: Number, default: 0 }, // ms
+  addressee: { type: String, default: '{}' }
 })
 
 const Mailing = mongoose.model('mailing', MailingSchema)

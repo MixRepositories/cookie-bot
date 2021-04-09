@@ -5,6 +5,7 @@ const updateDataUserInDB = require('./middlewares/userInitialization')
 const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
 const actionsRouter = require('./controllers/actions/actionsRouter')
 const config = require('config')
+const Mailman = require('./workers/Mailman')
 
 class Bot {
   constructor () {
@@ -20,7 +21,7 @@ class Bot {
 
   init () {
     this.initBot()
-    this.initControllerAutonomousWork()
+    this.initAutonomousWork()
     this.startBotController()
   }
 
@@ -28,9 +29,12 @@ class Bot {
     this.bot = new Telegraf(this.token)
   }
 
-  initControllerAutonomousWork () {
+  initAutonomousWork () {
     const controller = new ControllerAutonomousWork({ bot: this.bot })
     controller.start()
+
+    const mailman = new Mailman({ bot: this.bot })
+    mailman.start()
   }
 
   startBotController () {
@@ -45,10 +49,6 @@ class Bot {
     } catch (e) {
       this.bot.telegram.sendMessage(720773953, e.message)
     }
-  }
-
-  async sendMailing (id, message, keyboard) {
-    await this.bot.telegram.sendMessage(id, message, keyboard)
   }
 }
 

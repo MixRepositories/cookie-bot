@@ -3,7 +3,8 @@ const errors = require('../../constants/errors')
 const { getUserInfoFromCtx } = require('../../../utils')
 const prices = require('../../constants/prices.js')
 const systems = require('../../constants/systems')
-const getStandardKeyboard = require('../../../utils/getKeyboards')
+const { declOfNumCookies } = require('../../../utils')
+const { getStandardKeyboard } = require('../../../utils/getKeyboards')
 const { canCrushCookie } = require('../../../utils/toolsForDatabaseWork')
 const { convertTime } = require('../../../utils')
 
@@ -21,7 +22,7 @@ module.exports = async ctx => {
 
   if (await canCrushCookie(userInfo.id, prices.standard)) {
     await ctx.reply(
-      `У тебя есть ${dataUserFromDatabase.cookies} печенька`, standardKeyBoard
+      `У тебя есть ${declOfNumCookies(dataUserFromDatabase.cookies)}`, standardKeyBoard
     )
   } else {
     const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)

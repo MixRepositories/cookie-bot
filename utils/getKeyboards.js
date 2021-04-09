@@ -15,4 +15,22 @@ const getStandardKeyboard = () => {
   ]).resize()
 }
 
-module.exports = getStandardKeyboard
+const getKeyboardForMailing = ({ type, name }) => {
+  switch (type) {
+    case 'keyboard':
+      switch (name) {
+        case 'standard':
+          return getStandardKeyboard()
+      }
+      break
+    case 'inlineKeyboards':
+      break
+    default:
+      return []
+  }
+}
+
+module.exports = {
+  getKeyboardForMailing,
+  getStandardKeyboard
+}
