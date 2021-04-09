@@ -26,6 +26,7 @@ const eraseTicket = async ({ ctx, params }) => {
       await ctx.editMessageReplyMarkup({
         inline_keyboard: inlineKeyboardReply
       })
+      await ctx.answerCbQuery('Результат сохранен')
     } else {
       await ctx.answerCbQuery('Данный билет уже разыгран')
     }
