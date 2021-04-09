@@ -6,7 +6,7 @@
 /node_modules
 
 package-lock.json
-
+forCreateMailing.json
 .eslintrc.json
 
 # image with text on cookieTemplate
