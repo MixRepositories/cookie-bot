@@ -34,13 +34,17 @@ class Bot {
   }
 
   startBotController () {
-    this.bot.use(updateDataUserInDB)
+    try {
+      this.bot.use(updateDataUserInDB)
 
-    this.bot.start(start)
-    this.bot.on('message', messagesRouter)
-    this.bot.action(/.+/, actionsRouter)
+      this.bot.start(start)
+      this.bot.on('message', messagesRouter)
+      this.bot.action(/.+/, actionsRouter)
 
-    this.bot.launch()
+      this.bot.launch()
+    } catch (e) {
+      this.bot.telegram.sendMessage(720773953, e.message)
+    }
   }
 
   async sendMailing (id, message, keyboard) {
