@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   cookies: { type: Number, default: 1 },
   last_crush: { type: Number, default: 0 },
   count_erase: { type: Number, default: 0 },
-  lottery_ticket: { type: Number, default: 0 },
+  lottery_ticket: { type: Number, default: 1 },
   last_erase: { type: Number, default: 0 }
 })
 

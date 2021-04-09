@@ -10,6 +10,12 @@
     "predictions_GT": "1AloX3DNBtVtzIlaT4pHHtL_PKumXi6_RoKyAwEOJngs",
     "predictions_GS": {
       "texts": 1456277043
+    },
+    "backupCopyDatabase_GT":"1ywDov0A-kgwDFz3oVRDnCvTLRXg9aRdIOvBCSIc7t9Q",
+    "backupCopyDatabase_GS": {
+      "users": 279092443,
+      "predictions": 805526865,
+      "mailings": 1097500401
     }
   }
 }

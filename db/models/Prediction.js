@@ -7,7 +7,7 @@ const PredictionSchema = new Schema({
     ref: 'languages',
     type: Schema.Types.ObjectId
   },
-  usersRated: [{ ref: 'user', type: Schema.Types.ObjectId }],
+  users_rated: [{ ref: 'user', type: Schema.Types.ObjectId }],
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 }
 })
