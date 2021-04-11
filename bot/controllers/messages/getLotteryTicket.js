@@ -1,12 +1,12 @@
-const LotteryTicket = require('../../../db/models/LotteryTicket')
-const User = require('../../../db/models/User')
-const systems = require('../../constants/systems')
 const { getLotteryTicketInlineKeyboard } = require('../../utils/getKeyboards')
-const { convertTime } = require('../../../utils')
-const { joinDateForMessage } = require('../../../utils')
 const { pickUpLotteryTicket } = require('../../../utils/toolsForDatabaseWork')
-const { randomInt } = require('../../../utils')
+const LotteryTicket = require('../../../db/models/LotteryTicket')
 const { getUserInfoFromCtx } = require('../../../utils')
+const { joinDateForMessage } = require('../../../utils')
+const systems = require('../../constants/systems')
+const { convertTime } = require('../../../utils')
+const { randomInt } = require('../../../utils')
+const User = require('../../../db/models/User')
 
 const getLotteryTicket = async (ctx) => {
   const userInfoFromCtx = getUserInfoFromCtx(ctx)

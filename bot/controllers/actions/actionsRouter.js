@@ -1,7 +1,7 @@
+const { callbacks: { dislike, like, erase } } = require('../../constants/inlineKeyboards')
+const { parseQueryCallback } = require('../../../utils')
 const ratePrediction = require('./ratePrediction')
 const eraseTicket = require('./eraseTicket')
-const { parseQueryCallback } = require('../../../utils')
-const { callbacks: { dislike, like, erase } } = require('../../constants/inlineKeyboards')
 
 const actionsRouter = async ctx => {
   const { action, params } = parseQueryCallback(ctx.match[0])

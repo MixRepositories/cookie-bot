@@ -1,6 +1,6 @@
+const { getKeyboardForMailing } = require('../utils/getKeyboards')
 const Mailing = require('../../db/models/Mailing')
 const User = require('../../db/models/User')
-const { getKeyboardForMailing } = require('../utils/getKeyboards')
 const cron = require('node-cron')
 
 class Mailman {
