@@ -14,9 +14,7 @@ const eraseTicket = async ({ ctx, params }) => {
     if (dataTicket.active) {
       await addCookiesToUser(userData.id, dataTicket.prize)
       await updateStatusLotteryTicket(dataTicket.id)
-      const inlineKeyboardReply = getLotteryTicketInlineKeyboard(
-        `🎊 Ваш выйгрыш: ${dataTicket.prize} 🥠 🎊`, dataTicket.id
-      )
+      const inlineKeyboardReply = getLotteryTicketInlineKeyboard(`🎊 Ваш выйгрыш: ${dataTicket.prize} 🥠 🎊`, dataTicket.id)
 
       await ctx.editMessageReplyMarkup({
         inline_keyboard: inlineKeyboardReply

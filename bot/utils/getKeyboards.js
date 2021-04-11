@@ -37,14 +37,14 @@ const getPredictionInlineKeyboard = (idPrediction) => {
 }
 
 const getLotteryTicketInlineKeyboard = (text, idTicket) => {
-  return Markup.inlineKeyboard([
+  return [
     [
       Markup.button.callback(
         text,
         `${erase.action}?ticket=${idTicket}`
       )
     ]
-  ])
+  ]
 }
 
 const getKeyboardForMailing = ({ type, name }) => {

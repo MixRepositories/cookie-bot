@@ -8,6 +8,7 @@ const { joinDateForMessage } = require('../../../utils')
 const systems = require('../../constants/systems')
 const { convertTime } = require('../../../utils')
 const User = require('../../../db/models/User')
+const { Markup } = require('telegraf')
 
 const getLotteryTicket = async (ctx) => {
   const userInfoFromCtx = getUserInfoFromCtx(ctx)
@@ -26,7 +27,7 @@ const getLotteryTicket = async (ctx) => {
 
     await ctx.reply(
       `Лотерейный билет № ${lotteryTicket.id}. \n\nРазыгрывается до 20 🥠 \n\nСотри защитный слой и узнай свой выигрыш 🎁`,
-      inlineKeyboardReply
+      Markup.inlineKeyboard(inlineKeyboardReply)
     )
   } else {
     const timeBeforeAccrualLotteryTicket = convertTime(dataUser.last_erase + systems.freeLotteryTicketInterval)
