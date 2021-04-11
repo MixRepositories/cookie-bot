@@ -1,13 +1,6 @@
-const { preparationDataForPush } = require('./utils')
-
-async function updateSheets (sheet, header, source, data) {
+async function updateSheets (sheet, header, data) {
   await sheet.clear()
   await sheet.setHeaderRow(header)
-
-  data = data.map(elem => {
-    return preparationDataForPush(header, source, elem)
-  })
-
   await sheet.addRows(data)
 }
 

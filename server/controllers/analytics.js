@@ -1,8 +1,8 @@
-const config = require('config')
+const { updateSheets } = require('../../utils/googleSheets/analytics/analytics')
 const googleSheetsInit = require('../../utils/googleSheets/googleSheetsInit')
 const Prediction = require('../../db/models/Prediction')
 const User = require('../../db/models/User')
-const { updateSheets } = require('../../utils/googleSheets/analytics/analytics')
+const config = require('config')
 const moment = require('moment')
 
 exports.updateAll = async (req, res) => {
@@ -18,20 +18,20 @@ exports.updateAll = async (req, res) => {
 
   dataUsers = dataUsers.map(user => {
     user = user.toObject()
-    user.first_contact = moment.utc(user.first_contact).format()
-    user.last_crush = moment.utc(user.last_crush).format()
+    const format = 'DD-MM-YYYY HH:mm:ss'
+    user.first_contact = moment.utc(user.first_contact).format(format)
+    user.last_crush = moment.utc(user.last_crush).format(format)
+    user.last_erase = moment.utc(user.last_erase).format(format)
     return user
   })
 
-  const headerUsers = ['ObjectId', 'tgId', 'languageCode', 'firstContact', 'lastCrush', 'countCrush']
-  const sourceUsers = ['_id', 'id', 'language_code', 'first_contact', 'last_crush', 'count_crush']
-  await updateSheets(sheetUser, headerUsers, sourceUsers, dataUsers)
+  const headerUsers = ['_id', 'id', 'first_contact', 'cookies', 'count_crush', 'last_crush', 'lottery_ticket', 'count_erase', 'last_erase']
+  await updateSheets(sheetUser, headerUsers, dataUsers)
 
   const sheetPredictions = table.sheetsById[sheetPredictionsId]
   const dataPredictions = await Prediction.find({})
-  const headerPredictions = ['ObjectId', 'likes', 'dislikes']
-  const sourcePredictions = ['_id', 'likes', 'dislikes']
-  await updateSheets(sheetPredictions, headerPredictions, sourcePredictions, dataPredictions)
+  const headerPredictions = ['_id', 'likes', 'dislikes']
+  await updateSheets(sheetPredictions, headerPredictions, dataPredictions)
 
   res.send({ method: 'GET', status: 'ok', api: '/analytics/update-all' })
 }
