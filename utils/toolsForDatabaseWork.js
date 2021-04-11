@@ -57,7 +57,7 @@ const updateStatusLotteryTicket = async id => {
 
 const pickUpLotteryTicket = async id => {
   await User.updateOne({ id }, {
-    $inc: { lottery_ticket: -1 },
+    $inc: { lottery_ticket: -1, count_erase: 1 },
     last_erase: Date.now()
   })
 }
