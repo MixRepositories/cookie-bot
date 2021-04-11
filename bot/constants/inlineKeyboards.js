@@ -7,7 +7,7 @@ const inlineKeyboards = {
       text: '👍', action: 'like'
     },
     erase: {
-      text: '####СТЕРЕТЬ####', action: 'erase'
+      text: '#### СТЕРЕТЬ ####', action: 'erase'
     }
   },
   switches: {

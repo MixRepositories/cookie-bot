@@ -1,11 +1,12 @@
 const { getLotteryTicketInlineKeyboard } = require('../../utils/getKeyboards')
 const { pickUpLotteryTicket } = require('../../../utils/toolsForDatabaseWork')
+const { callbacks: { erase } } = require('../../constants/inlineKeyboards')
 const LotteryTicket = require('../../../db/models/LotteryTicket')
+const { getCookiesForLotteryTicket } = require('../../utils')
 const { getUserInfoFromCtx } = require('../../../utils')
 const { joinDateForMessage } = require('../../../utils')
 const systems = require('../../constants/systems')
 const { convertTime } = require('../../../utils')
-const { randomInt } = require('../../../utils')
 const User = require('../../../db/models/User')
 
 const getLotteryTicket = async (ctx) => {
@@ -15,13 +16,13 @@ const getLotteryTicket = async (ctx) => {
 
   if (dataUser.lottery_ticket > 0) {
     const lotteryTicket = await LotteryTicket.create({
-      prize: randomInt(3, 20),
+      prize: getCookiesForLotteryTicket(),
       user: dataUser._id
     })
 
     await pickUpLotteryTicket(dataUser.id)
 
-    const inlineKeyboardReply = getLotteryTicketInlineKeyboard(lotteryTicket.id)
+    const inlineKeyboardReply = getLotteryTicketInlineKeyboard(erase.text, lotteryTicket.id)
 
     await ctx.reply(
       `Лотерейный билет № ${lotteryTicket.id}. \n\nРазыгрывается до 20 🥠 \n\nСотри защитный слой и узнай свой выигрыш 🎁`,
