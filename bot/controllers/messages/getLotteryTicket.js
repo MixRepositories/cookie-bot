@@ -1,13 +1,12 @@
 const LotteryTicket = require('../../../db/models/LotteryTicket')
 const User = require('../../../db/models/User')
 const systems = require('../../constants/systems')
+const { getLotteryTicketInlineKeyboard } = require('../../utils/getKeyboards')
 const { convertTime } = require('../../../utils')
 const { joinDateForMessage } = require('../../../utils')
 const { pickUpLotteryTicket } = require('../../../utils/toolsForDatabaseWork')
 const { randomInt } = require('../../../utils')
 const { getUserInfoFromCtx } = require('../../../utils')
-const { Markup } = require('telegraf')
-const { callbacks: { erase } } = require('../../constants/inlineKeyboards')
 
 const getLotteryTicket = async (ctx) => {
   const userInfoFromCtx = getUserInfoFromCtx(ctx)
@@ -22,14 +21,7 @@ const getLotteryTicket = async (ctx) => {
 
     await pickUpLotteryTicket(dataUser.id)
 
-    const inlineKeyboardReply = Markup.inlineKeyboard([
-      [
-        Markup.button.callback(
-          `${erase.text}`,
-          `${erase.action}?ticket=${lotteryTicket.id}`
-        )
-      ]
-    ])
+    const inlineKeyboardReply = getLotteryTicketInlineKeyboard(lotteryTicket.id)
 
     await ctx.reply(
       `Лотерейный билет № ${lotteryTicket.id}. \n\nРазыгрывается до 20 🥠 \n\nСотри защитный слой и узнай свой выигрыш 🎁`,

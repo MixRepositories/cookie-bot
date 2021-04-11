@@ -1,6 +1,6 @@
 const Mailing = require('../../db/models/Mailing')
 const User = require('../../db/models/User')
-const { getKeyboardForMailing } = require('../../utils/getKeyboards')
+const { getKeyboardForMailing } = require('../utils/getKeyboards')
 const cron = require('node-cron')
 
 class Mailman {
@@ -34,6 +34,7 @@ class Mailman {
   async sendMailings () {
     await Promise.all(
       this.mailings.map(async mailing => {
+        await Mailing.updateOne({ _id: mailing._id }, { status: false })
         const addressee = await User.find(JSON.parse((mailing.addressee)))
         await Promise.all(
           addressee.map(async user => {
@@ -41,7 +42,6 @@ class Mailman {
             await this.bot.telegram.sendMessage(user.id, mailing.text, keyboardForMailing)
           })
         )
-        await Mailing.updateOne({ _id: mailing._id }, { status: false })
       })
     )
   }

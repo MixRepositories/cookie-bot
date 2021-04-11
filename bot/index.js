@@ -1,11 +1,11 @@
-const { Telegraf } = require('telegraf')
-const start = require('./controllers/commands/start.js')
+const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
 const messagesRouter = require('./controllers/messages/messagesRouter.js')
 const updateDataUserInDB = require('./middlewares/userInitialization')
-const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
 const actionsRouter = require('./controllers/actions/actionsRouter')
-const config = require('config')
+const start = require('./controllers/commands/start.js')
 const Mailman = require('./workers/Mailman')
+const { Telegraf } = require('telegraf')
+const config = require('config')
 
 class Bot {
   constructor () {

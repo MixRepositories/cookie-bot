@@ -1,6 +1,6 @@
 const User = require('../../../db/models/User')
 const systems = require('../../constants/systems')
-const { getStandardKeyboard } = require('../../../utils/getKeyboards')
+const { getStandardKeyboard } = require('../../utils/getKeyboards')
 const { joinDateForMessage } = require('../../../utils')
 const { convertTime } = require('../../../utils')
 const { getUserInfoFromCtx } = require('../../../utils')

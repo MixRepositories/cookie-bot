@@ -1,0 +1,70 @@
+const { callbacks: { dislike, like, erase }, switches: { share } } = require('../constants/inlineKeyboards')
+const { balance, lotteryTicket, crush } = require('../constants/keyboards')
+const { Markup } = require('telegraf')
+
+const getStandardKeyboard = () => {
+  return Markup.keyboard([
+    [
+      Markup.button.text(crush.text)
+    ],
+    [
+      Markup.button.text(balance.text)
+    ],
+    [
+      Markup.button.text(lotteryTicket.text)
+    ]
+  ]).resize()
+}
+
+const getPredictionInlineKeyboard = (idPrediction) => {
+  const paramsForCallback = `idPrediction=${idPrediction}`
+
+  return Markup.inlineKeyboard([
+    [
+      Markup.button.callback(
+        dislike.text,
+        `${dislike.action}?${paramsForCallback}&effect=dislikes`
+      ),
+      Markup.button.callback(
+        like.text,
+        `${like.action}?${paramsForCallback}&effect=likes`
+      )
+    ],
+    [
+      Markup.button.switchToChat(share.text, share.message)
+    ]
+  ])
+}
+
+const getLotteryTicketInlineKeyboard = (text, idTicket) => {
+  return Markup.inlineKeyboard([
+    [
+      Markup.button.callback(
+        text,
+        `${erase.action}?ticket=${idTicket}`
+      )
+    ]
+  ])
+}
+
+const getKeyboardForMailing = ({ type, name }) => {
+  switch (type) {
+    case 'keyboard':
+      switch (name) {
+        case 'standard':
+          return getStandardKeyboard()
+      }
+      break
+    case 'inlineKeyboards':
+      break
+    default:
+      return []
+  }
+}
+
+module.exports = {
+  getLotteryTicketInlineKeyboard,
+  getPredictionInlineKeyboard,
+  getKeyboardForMailing,
+  getStandardKeyboard
+}

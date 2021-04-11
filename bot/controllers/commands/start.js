@@ -4,7 +4,7 @@ const { getUserInfoFromCtx } = require('../../../utils')
 const prices = require('../../constants/prices.js')
 const systems = require('../../constants/systems')
 const { declOfNumCookies } = require('../../../utils')
-const { getStandardKeyboard } = require('../../../utils/getKeyboards')
+const { getStandardKeyboard } = require('../../utils/getKeyboards')
 const { canCrushCookie } = require('../../../utils/toolsForDatabaseWork')
 const { convertTime } = require('../../../utils')
 

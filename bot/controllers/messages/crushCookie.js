@@ -1,7 +1,5 @@
+const { getPredictionInlineKeyboard } = require('../../utils/getKeyboards')
 const AddTextOnImage = require('../../workers/AddTextOnImage')
-const {
-  callbacks: { dislike, like }, switches: { share }
-} = require('../../constants/inlineKeyboards')
 const { getUserInfoFromCtx } = require('../../../utils')
 const prices = require('../../constants/prices.js')
 const errors = require('../../constants/errors.js')
@@ -11,7 +9,6 @@ const {
 } = require('../../../utils/toolsForDatabaseWork')
 const { convertTime } = require('../../../utils')
 const User = require('../../../db/models/User')
-const { Markup } = require('telegraf')
 const fs = require('fs')
 
 const crushCookie = async ctx => {
@@ -26,23 +23,7 @@ const crushCookie = async ctx => {
       const imageCookieWithPrediction = new AddTextOnImage(prediction.text)
       const urlImageCookieWithPrediction = imageCookieWithPrediction.pathToPicture
 
-      const paramsForCallback = `idPrediction=${prediction._id}`
-
-      const inlineKeyboardReplyWithPhoto = Markup.inlineKeyboard([
-        [
-          Markup.button.callback(
-            `${dislike.text} ${prediction.dislikes}`,
-            `${dislike.action}?${paramsForCallback}&effect=dislikes`
-          ),
-          Markup.button.callback(
-            `${like.text} ${prediction.likes}`,
-            `${like.action}?${paramsForCallback}&effect=likes`
-          )
-        ],
-        [
-          Markup.button.switchToChat(share.text, share.message)
-        ]
-      ])
+      const inlineKeyboardReplyWithPhoto = getPredictionInlineKeyboard(prediction._id)
 
       await ctx.replyWithPhoto(
         { source: fs.readFileSync(urlImageCookieWithPrediction) }, inlineKeyboardReplyWithPhoto

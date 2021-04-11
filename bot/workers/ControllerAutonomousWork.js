@@ -1,7 +1,7 @@
 const User = require('../../db/models/User')
 const systems = require('../constants/systems')
 const cron = require('node-cron')
-const { getStandardKeyboard } = require('../../utils/getKeyboards')
+const { getStandardKeyboard } = require('../utils/getKeyboards')
 const { addLotteryTicketsToUser } = require('../../utils/toolsForDatabaseWork')
 const { addCookiesToUser } = require('../../utils/toolsForDatabaseWork')
 
