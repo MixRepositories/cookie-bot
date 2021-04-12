@@ -6,8 +6,7 @@ const MailingSchema = new Schema({
   text: String,
   buttons: {
     buttonsType: String,
-    collectionName: String,
-    default: {}
+    collectionName: String
   },
   delivery_date: { type: Number, default: 0 }, // ms
   addressee: { type: Object }
