@@ -47,10 +47,10 @@ const getLotteryTicketInlineKeyboard = (text, idTicket) => {
   ]
 }
 
-const getKeyboardForMailing = ({ type, name }) => {
-  switch (type) {
+const getKeyboardForMailing = ({ buttonsType, collectionName }) => {
+  switch (buttonsType) {
     case 'keyboard':
-      switch (name) {
+      switch (collectionName) {
         case 'standard':
           return getStandardKeyboard()
       }
