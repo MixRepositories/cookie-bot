@@ -3,6 +3,7 @@ const { Schema } = require('mongoose')
 
 const UserSchema = new Schema({
   id: { type: Number, required: true, unique: true },
+  status: { type: Boolean, default: true },
   first_name: { type: String },
   last_name: { type: String },
   username: { type: String },

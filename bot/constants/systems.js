@@ -1,6 +1,11 @@
+const hour = 3600000 // ms
+const day = hour * 24 // ms
+const week = day * 7 // ms
+
 const systems = {
-  freeCookieAccrualInterval: 3600000 * 24, // ms
-  freeLotteryTicketInterval: 3600000 * 168 // ms
+  freeCookieAccrualInterval: day, // ms
+  freeLotteryTicketInterval: week, // ms
+  loggedIntoGameForLongTime: day * 2
 }
 
 module.exports = systems

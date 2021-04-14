@@ -35,11 +35,18 @@ class Mailman {
     await Promise.all(
       this.mailings.map(async mailing => {
         await Mailing.updateOne({ _id: mailing._id }, { status: false })
-        const addressee = await User.find(mailing.addressee || {})
+        const addresseeFilter = mailing.addressee || {}
+        const addressee = await User.find({
+          ...addresseeFilter, status: true
+        })
         await Promise.all(
           addressee.map(async user => {
             const keyboardForMailing = getKeyboardForMailing(mailing.buttons)
-            await this.bot.telegram.sendMessage(user.id, mailing.text, keyboardForMailing)
+            try {
+              await this.bot.telegram.sendMessage(user.id, mailing.text, keyboardForMailing)
+            } catch (e) {
+              await User.updateOne({ id: user.id }, { $set: { status: false } })
+            }
           })
         )
       })

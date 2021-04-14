@@ -12,7 +12,8 @@ const updateUserData = async userInfo => {
     last_name: userInfo?.last_name,
     username: userInfo?.username,
     is_bot: userInfo?.is_bot,
-    language_code: langCode?._id
+    language_code: langCode?._id,
+    status: true
   })
 }
 

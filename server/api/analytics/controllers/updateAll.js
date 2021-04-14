@@ -1,11 +1,11 @@
-const { updateSheets } = require('../../utils/googleSheets/analytics/analytics')
-const googleSheetsInit = require('../../utils/googleSheets/googleSheetsInit')
-const Prediction = require('../../db/models/Prediction')
-const User = require('../../db/models/User')
+const { updateSheets } = require('../../../../utils/googleSheets/analytics/analytics')
+const googleSheetsInit = require('../../../../utils/googleSheets/googleSheetsInit')
+const Prediction = require('../../../../db/models/Prediction')
+const User = require('../../../../db/models/User')
 const config = require('config')
 const moment = require('moment')
 
-exports.updateAll = async (req, res) => {
+const updateAll = async (req, res) => {
   const tableId = config.get('googleTables.analytics_GT')
   const sheetUsersId = config.get('googleTables.analytics_GS.users')
   const sheetPredictionsId = config.get('googleTables.analytics_GS.predictions')
@@ -18,14 +18,17 @@ exports.updateAll = async (req, res) => {
 
   dataUsers = dataUsers.map(user => {
     user = user.toObject()
-    const format = 'DD-MM-YYYY HH:mm:ss'
+    const format = 'DD-MM-YYYY'
     user.first_contact = moment.utc(user.first_contact).format(format)
     user.last_crush = moment.utc(user.last_crush).format(format)
     user.last_erase = moment.utc(user.last_erase).format(format)
     return user
   })
 
-  const headerUsers = ['_id', 'id', 'first_contact', 'cookies', 'count_crush', 'last_crush', 'lottery_ticket', 'count_erase', 'last_erase']
+  const headerUsers = [
+    'status', 'username', '_id', 'id', 'first_contact', 'cookies', 'count_crush',
+    'last_crush', 'lottery_ticket', 'count_erase', 'last_erase'
+  ]
   await updateSheets(sheetUser, headerUsers, dataUsers)
 
   const sheetPredictions = table.sheetsById[sheetPredictionsId]
@@ -33,5 +36,7 @@ exports.updateAll = async (req, res) => {
   const headerPredictions = ['_id', 'likes', 'dislikes']
   await updateSheets(sheetPredictions, headerPredictions, dataPredictions)
 
-  res.send({ method: 'GET', status: 'ok', api: '/analytics/update-all' })
+  res.send({ method: 'GET', status: 'ok', api: req.url })
 }
+
+module.exports = updateAll
