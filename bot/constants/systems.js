@@ -1,11 +1,15 @@
-const hour = 3600000 // ms
-const day = hour * 24 // ms
-const week = day * 7 // ms
+const ms = require('ms')
 
 const systems = {
-  freeCookieAccrualInterval: day, // ms
-  freeLotteryTicketInterval: week, // ms
-  loggedIntoGameForLongTime: day * 2
+  freeCookieAccrualInterval: ms('1d'),
+  freeLotteryTicketInterval: ms('7d'),
+  absenceTimings: {
+    firstTiming: 1000 * 60, //  ms('2d')
+    secondTiming: 1000 * 60 * 3, // ms('5d')
+    thirdTiming: 1000 * 60 * 5, // ms('14d')
+    fourthTiming: 1000 * 60 * 7, // ms('30d')
+    endTiming: 1000 * 60 * 8 // ms('31d')
+  }
 }
 
 module.exports = systems

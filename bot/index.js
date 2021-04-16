@@ -1,4 +1,4 @@
-const ControllerAutonomousWork = require('./workers/ControllerAutonomousWork')
+const AutonomousWorker = require('./workers/AutonomousWorker')
 const messagesRouter = require('./controllers/messages/messagesRouter.js')
 const updateDataUserInDB = require('./middlewares/userInitialization')
 const actionsRouter = require('./controllers/actions/actionsRouter')
@@ -30,7 +30,7 @@ class Bot {
   }
 
   initAutonomousWork () {
-    const controller = new ControllerAutonomousWork({ bot: this.bot })
+    const controller = new AutonomousWorker({ bot: this.bot })
     controller.start()
 
     const mailman = new Mailman({ bot: this.bot })

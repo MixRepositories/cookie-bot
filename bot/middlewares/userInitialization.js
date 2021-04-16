@@ -5,9 +5,7 @@ const { getUserInfoFromCtx } = require('../../utils')
 
 const userInitialization = async (ctx, next) => {
   const userInfo = getUserInfoFromCtx(ctx)
-  const dateContact = ctx.update.message?.date * 1000
   const langCode = await Language.findOne({ code: userInfo?.language_code })
-
   try {
     await User.create({
       id: userInfo?.id,
@@ -16,7 +14,7 @@ const userInitialization = async (ctx, next) => {
       username: userInfo?.username,
       is_bot: userInfo?.is_bot,
       language_code: langCode?._id,
-      first_contact: dateContact
+      last_sign_in: Date.now()
     })
     ctx.isNewUser = true
   } catch (e) {
