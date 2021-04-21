@@ -20,6 +20,7 @@ const updateAll = async (req, res) => {
     user = user.toObject()
     const format = 'DD-MM-YYYY'
     user.first_contact = moment.utc(user.first_contact).format(format)
+    user.last_sign_in = moment.utc(user.last_sign_in).format(format)
     user.last_crush = moment.utc(user.last_crush).format(format)
     user.last_erase = moment.utc(user.last_erase).format(format)
     return user
