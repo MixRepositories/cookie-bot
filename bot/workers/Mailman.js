@@ -53,11 +53,7 @@ class Mailman {
         await Promise.all(
           addressee.map(async user => {
             const keyboardForMailing = getKeyboardForMailing(mailing.buttons)
-            try {
-              await this.bot.telegram.sendMessage(user.id, mailing.text, keyboardForMailing)
-            } catch (e) {
-              await User.updateOne({ id: user.id }, { $set: { status: false } })
-            }
+            await this.bot.telegram.sendMessage(user.id, mailing.text, keyboardForMailing)
           })
         )
       })
@@ -106,7 +102,11 @@ class Mailman {
   }
 
   async sendMessage (id, message, keyboard) {
-    await this.bot.telegram.sendMessage(id, message, keyboard)
+    try {
+      await this.bot.telegram.sendMessage(id, message, keyboard)
+    } catch (e) {
+      await User.updateOne({ id }, { $set: { status: false } })
+    }
   }
 }
 
