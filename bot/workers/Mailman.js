@@ -1,7 +1,11 @@
-const { getKeyboardForMailing } = require('../utils/getKeyboards')
-const Mailing = require('../../db/models/Mailing')
-const User = require('../../db/models/User')
 const cron = require('node-cron')
+const User = require('../../db/models/User')
+const systems = require('../constants/systems')
+const Mailing = require('../../db/models/Mailing')
+const { getStandardKeyboard } = require('../utils/getKeyboards')
+const { getKeyboardForMailing } = require('../utils/getKeyboards')
+const { addCookiesToUser } = require('../../utils/toolsForDatabaseWork')
+const { addLotteryTicketsToUser } = require('../../utils/toolsForDatabaseWork')
 
 class Mailman {
   constructor ({ bot }) {
@@ -10,10 +14,17 @@ class Mailman {
   }
 
   start () {
-    this.controllerSendingMails()
+    this.startControllers()
     cron.schedule('* * * * *', () => {
-      this.controllerSendingMails()
+      this.startControllers()
     })
+  }
+
+  startControllers () {
+    this.controlFreeCookies()
+    this.controlFreeLotteryTicket()
+    this.controllerSendingMails()
+    this.controlNotification('firstNotification')
   }
 
   async controllerSendingMails () {
@@ -51,6 +62,51 @@ class Mailman {
         )
       })
     )
+  }
+
+  async controlFreeCookies () {
+    const dateForFilterCookie = Date.now() - systems.freeCookieAccrualInterval
+    const usersNeedAddCookie = await User.find(
+      {
+        last_crush: { $lte: dateForFilterCookie },
+        cookies: { $lte: 0 }
+      })
+    const standardKeyBoard = getStandardKeyboard()
+    usersNeedAddCookie.forEach(user => {
+      addCookiesToUser(user.id, 1)
+      this.sendMessage(user.id, 'Тебе добавлена печенька! Скорее разломи ее 😊', standardKeyBoard)
+    })
+  }
+
+  async controlFreeLotteryTicket () {
+    const dateForFilterLotteryTicket = Date.now() - systems.freeLotteryTicketInterval
+    const usersNeedAddLotteryTicket = await User.find(
+      {
+        last_erase: { $lte: dateForFilterLotteryTicket },
+        lottery_ticket: { $lte: 0 }
+      })
+    const standardKeyBoard = getStandardKeyboard()
+    usersNeedAddLotteryTicket.forEach(user => {
+      addLotteryTicketsToUser(user.id, 1)
+      this.sendMessage(user.id, 'Тебе доступен лотерейный билет! Скорее стирай защитный слой 😊', standardKeyBoard)
+    })
+  }
+
+  async controlNotification (notification) {
+    const filterDate = Date.now() - systems.notification[notification].timing
+    const users = await User.find({ [notification]: false, endNotification: false, last_sign_in: { $lte: filterDate } })
+    const standardKeyBoard = getStandardKeyboard()
+
+    await Promise.all([
+      users.map(async user => {
+        await this.sendMessage(user.id, systems.notification[notification].message, standardKeyBoard)
+        await User.updateOne({ id: user.id }, { $set: { [notification]: true } })
+      })
+    ])
+  }
+
+  async sendMessage (id, message, keyboard) {
+    await this.bot.telegram.sendMessage(id, message, keyboard)
   }
 }
 

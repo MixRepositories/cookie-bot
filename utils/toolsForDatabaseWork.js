@@ -13,7 +13,12 @@ const updateUserData = async userInfo => {
     username: userInfo?.username,
     language_code: langCode?._id,
     last_sign_in: Date.now(),
-    status: true
+    status: true,
+    firstNotification: false,
+    secondNotification: false,
+    thirdNotification: false,
+    fourthNotification: false,
+    endNotification: false
   })
 }
 

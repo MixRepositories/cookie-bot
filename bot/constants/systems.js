@@ -3,12 +3,27 @@ const ms = require('ms')
 const systems = {
   freeCookieAccrualInterval: ms('1d'),
   freeLotteryTicketInterval: ms('7d'),
-  absenceTimings: {
-    firstTiming: 1000 * 60, //  ms('2d')
-    secondTiming: 1000 * 60 * 3, // ms('5d')
-    thirdTiming: 1000 * 60 * 5, // ms('14d')
-    fourthTiming: 1000 * 60 * 7, // ms('30d')
-    endTiming: 1000 * 60 * 8 // ms('31d')
+  notification: {
+    firstNotification: {
+      timing: ms('2d'),
+      message: 'Привет! \n\n Пора разломить 🥠! \nТебя ждет твое предсказание!'
+    },
+    secondNotification: {
+      timing: ms('5d'),
+      message: 'Привет! Ты давно не заходил 😔 \n\nДавай разломим 🥠 ?'
+    },
+    thirdNotification: {
+      timing: ms('14d'),
+      message: 'Привет! Ты давно не заходил 😔 \n\nДавай разломим 🥠 ?'
+    },
+    fourthNotification: {
+      timing: ms('30d'),
+      message: 'Привет! Ты давно не заходил 😔 \n\nДавай разломим 🥠 ?'
+    },
+    endNotification: {
+      timing: ms('31d'),
+      message: 'Привет! Ты давно не заходил 😔 \n\nДавай разломим 🥠 ?'
+    }
   }
 }
 

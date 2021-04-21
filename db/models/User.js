@@ -20,7 +20,13 @@ const UserSchema = new Schema({
 
   count_erase: { type: Number, default: 0 },
   lottery_ticket: { type: Number, default: 1 },
-  last_erase: { type: Number, default: 0 }
+  last_erase: { type: Number, default: 0 },
+
+  firstNotification: { type: Boolean, default: false },
+  secondNotification: { type: Boolean, default: false },
+  thirdNotification: { type: Boolean, default: false },
+  fourthNotification: { type: Boolean, default: false },
+  endNotification: { type: Boolean, default: false }
 })
 
 const User = mongoose.model('user', UserSchema)
