@@ -2,6 +2,7 @@ const cron = require('node-cron')
 const User = require('../../db/models/User')
 const systems = require('../constants/systems')
 const Mailing = require('../../db/models/Mailing')
+const notifications = require('../constants/notifications')
 const { getStandardKeyboard } = require('../utils/getKeyboards')
 const { getKeyboardForMailing } = require('../utils/getKeyboards')
 const { addCookiesToUser } = require('../../utils/toolsForDatabaseWork')
@@ -88,15 +89,15 @@ class Mailman {
     })
   }
 
-  async controlNotification (notification) {
-    const filterDate = Date.now() - systems.notification[notification].timing
-    const users = await User.find({ [notification]: false, endNotification: false, last_sign_in: { $lte: filterDate } })
+  async controlNotification (type) {
+    const filterDate = Date.now() - notifications.atAbsence[type].timing
+    const users = await User.find({ [type]: false, endNotification: false, last_sign_in: { $lte: filterDate } })
     const standardKeyBoard = getStandardKeyboard()
 
     await Promise.all([
       users.map(async user => {
-        await this.sendMessage(user.id, systems.notification[notification].message, standardKeyBoard)
-        await User.updateOne({ id: user.id }, { $set: { [notification]: true } })
+        await this.sendMessage(user.id, notifications.atAbsence[type].message, standardKeyBoard)
+        await User.updateOne({ id: user.id }, { $set: { [type]: true } })
       })
     ])
   }
