@@ -27,7 +27,7 @@ const updateAll = async (req, res) => {
   })
 
   const headerUsers = [
-    'status', 'username', 'last_sign_in', '_id', 'id', 'first_contact', 'cookies', 'count_crush',
+    'status', 'username', 'last_sign_in', '_id', 'id', 'first_contact', 'last_sign_in', 'cookies', 'count_crush',
     'last_crush', 'lottery_ticket', 'count_erase', 'last_erase'
   ]
   await updateSheets(sheetUser, headerUsers, dataUsers)
