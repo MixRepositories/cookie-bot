@@ -7,7 +7,8 @@ const normalizeNotificationUsers = async (req, res) => {
       secondNotification: false,
       thirdNotification: false,
       fourthNotification: false,
-      endNotification: false
+      endNotification: false,
+      last_sign_in: 1_619_270_659_541
     }
   })
 
