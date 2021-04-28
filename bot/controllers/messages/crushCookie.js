@@ -13,7 +13,7 @@ const fs = require('fs')
 
 const crushCookie = async ctx => {
   const userInfo = getUserInfoFromCtx(ctx)
-  const price = prices.standard
+  const price = prices.standard.price
   if (await canCrushCookie(userInfo.id, price)) {
     const resultPickUpCookies = await pickUpCookies(userInfo.id, price)
 
