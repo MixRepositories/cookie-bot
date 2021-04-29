@@ -2,6 +2,7 @@ const User = require('../db/models/User.js')
 const Prediction = require('../db/models/Prediction')
 const Language = require('../db/models/Language')
 const LotteryTicket = require('../db/models/LotteryTicket')
+const CategoryPrediction = require('../db/models/CategoryPrediction')
 const { randomInt } = require('./index')
 
 const updateUserData = async userInfo => {
@@ -31,10 +32,12 @@ const pickUpCookies = (userId, count) => {
   )
 }
 
-const getRandomPrediction = async () => {
-  const countPredictions = await Prediction.count()
+const getRandomPrediction = async (category) => {
+  const categoryDoc = await CategoryPrediction.findOne({ code: category })
+  const filterForPredictions = { category: categoryDoc.id }
+  const countPredictions = await Prediction.count(filterForPredictions)
   const randomIndexPrediction = randomInt(0, countPredictions)
-  const predictions = await Prediction.find()
+  const predictions = await Prediction.find(filterForPredictions)
   return predictions[randomIndexPrediction]
 }
 

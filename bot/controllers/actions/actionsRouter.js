@@ -1,7 +1,8 @@
-const { callbacks: { dislike, like, erase } } = require('../../constants/inlineKeyboards')
+const { callbacks: { dislike, like, erase, crush } } = require('../../constants/inlineKeyboards')
 const { parseQueryCallback } = require('../../../utils')
 const ratePrediction = require('./ratePrediction')
 const eraseTicket = require('./eraseTicket')
+const crushCookie = require('./crushCookie')
 
 const actionsRouter = async ctx => {
   const { action, params } = parseQueryCallback(ctx.match[0])
@@ -14,6 +15,9 @@ const actionsRouter = async ctx => {
       break
     case erase.action:
       await eraseTicket({ ctx, params })
+      break
+    case crush.action:
+      await crushCookie({ ctx, params })
       break
   }
 }

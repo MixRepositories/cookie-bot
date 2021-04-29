@@ -1,5 +1,8 @@
 const { callbacks: { dislike, like, erase }, switches: { share } } = require('../constants/inlineKeyboards')
 const { balance, lotteryTicket, crush } = require('../constants/keyboards')
+const inlineKeyboards = require('../constants/inlineKeyboards')
+const prices = require('../constants/prices')
+const _chunk = require('lodash/chunk')
 const { Markup } = require('telegraf')
 
 const getStandardKeyboard = () => {
@@ -47,6 +50,19 @@ const getLotteryTicketInlineKeyboard = (text, idTicket) => {
   ]
 }
 
+const getCategoriesPredictionInlineKeyboard = () => {
+  const fff = _chunk(inlineKeyboards.categoriesPredictions(prices).map(elem => (
+    Markup.button.callback(
+      elem.text,
+      elem.action
+    )
+  )), 2)
+  console.log(fff)
+  return Markup.inlineKeyboard(
+    fff
+  )
+}
+
 const getKeyboardForMailing = ({ buttonsType, collectionName }) => {
   switch (buttonsType) {
     case 'keyboard':
@@ -63,6 +79,7 @@ const getKeyboardForMailing = ({ buttonsType, collectionName }) => {
 }
 
 module.exports = {
+  getCategoriesPredictionInlineKeyboard,
   getLotteryTicketInlineKeyboard,
   getPredictionInlineKeyboard,
   getKeyboardForMailing,
