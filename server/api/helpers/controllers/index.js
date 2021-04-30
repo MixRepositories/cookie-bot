@@ -1,5 +1,4 @@
 const addNewPredictionsByCategories = require('./addNewPredictionsByCategories')
-const normalizeNotificationUsers = require('./normalizeNotificationUsers')
 const normalizePredictions = require('./normalizePredictions')
 const backupCopyDatabase = require('./backupCopyDatabase')
 const restoreBackupCopy = require('./restoreBackupCopy')
@@ -8,7 +7,6 @@ const addCategories = require('./addCategories')
 
 module.exports = {
   addNewPredictionsByCategories,
-  normalizeNotificationUsers,
   normalizePredictions,
   backupCopyDatabase,
   restoreBackupCopy,
