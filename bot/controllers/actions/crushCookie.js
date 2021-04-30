@@ -25,8 +25,13 @@ const crushCookie = async ({ ctx, params }) => {
 
       await ctx.answerCbQuery('*Хруст*')
 
+      await ctx.deleteMessage()
+
       await ctx.replyWithPhoto(
-        { source: fs.readFileSync(urlImageCookieWithPrediction) }, inlineKeyboardReplyWithPhoto
+        { source: fs.readFileSync(urlImageCookieWithPrediction) }, {
+          caption: 'Как вам предсказание? \n\nНажмите на кнопку "Рассказать" чтобы поделиться ботом с друзьями!',
+          ...inlineKeyboardReplyWithPhoto
+        }
       )
     } else {
       await ctx.answerCbQuery(errors.common)

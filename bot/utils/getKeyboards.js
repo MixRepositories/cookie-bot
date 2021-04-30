@@ -51,15 +51,13 @@ const getLotteryTicketInlineKeyboard = (text, idTicket) => {
 }
 
 const getCategoriesPredictionInlineKeyboard = () => {
-  const fff = _chunk(inlineKeyboards.categoriesPredictions(prices).map(elem => (
-    Markup.button.callback(
-      elem.text,
-      elem.action
-    )
-  )), 2)
-  console.log(fff)
   return Markup.inlineKeyboard(
-    fff
+    _chunk(inlineKeyboards.categoriesPredictions(prices).map(elem => (
+      Markup.button.callback(
+        elem.text,
+        elem.action
+      )
+    )), 2)
   )
 }
 
