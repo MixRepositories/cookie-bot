@@ -7,7 +7,6 @@ const userInitialization = async (ctx, next) => {
   const userInfo = getUserInfoFromCtx(ctx)
   const langCode = await Language.findOne({ code: userInfo?.language_code })
   try {
-    console.log('try')
     await User.create({
       id: userInfo?.id,
       first_name: userInfo?.first_name,
@@ -19,7 +18,6 @@ const userInitialization = async (ctx, next) => {
     })
     ctx.isNewUser = true
   } catch (e) {
-    console.log('error')
     await updateUserData(userInfo)
   }
 
