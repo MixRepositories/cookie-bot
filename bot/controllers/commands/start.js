@@ -13,19 +13,19 @@ module.exports = async ctx => {
   const dataUserFromDatabase = await User.findOne({
     id: userInfo?.id
   })
-
-  if (ctx.isNewUser) {
-    await ctx.reply(`Добро пожаловать ${userInfo?.first_name}! \nРазломи печеньку и узнай свое предсказание на день 🧝`)
-  }
-
   const standardKeyBoard = getStandardKeyboard()
 
-  if (await canCrushCookie(userInfo.id, prices.standard)) {
+  if (ctx.isNewUser) {
     await ctx.reply(
-      `У тебя есть ${declOfNumCookies(dataUserFromDatabase.cookies)}`, standardKeyBoard
+      `Добро пожаловать ${userInfo?.first_name}!\nРазломи печеньку и узнай свое предсказание на день 🧝\n\nСейчас у тебя есть ${declOfNumCookies(dataUserFromDatabase.cookies)}`,
+      standardKeyBoard
     )
   } else {
-    const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)
-    await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')), standardKeyBoard)
+    if (await canCrushCookie(userInfo.id, prices.main.price)) {
+      await ctx.reply(`Сейчас у тебя есть ${declOfNumCookies(dataUserFromDatabase.cookies)}`, standardKeyBoard)
+    } else {
+      const timeBeforeAccrual = convertTime(dataUserFromDatabase.last_crush + systems.freeCookieAccrualInterval)
+      await ctx.reply(errors.cannotCrush(timeBeforeAccrual.join(':')), standardKeyBoard)
+    }
   }
 }
