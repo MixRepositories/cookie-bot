@@ -1,25 +1,29 @@
 const { createCanvas, Image } = require('canvas')
-const fs = require('fs')
-const sha1 = require('sha1')
 const paths = require('../constants/paths')
+const sha1 = require('sha1')
 const path = require('path')
+const fs = require('fs')
 
 class AddTextOnImage {
   constructor (text) {
     this.text = text
-    this.maxLengthLineTextPx = 275
+    this.lines = []
     this.textByWords = []
     this.img = null
-    this.canvas = null
     this.ctx = null
-    this.lines = []
-    this.objectsByLineForPrint = []
-    this.font = 'Fira Sans'
+    this.canvas = null
     this.fontSize = 12
     this.lineHeight = 1.3
-    this.pathToTemplate = path.resolve() + paths.pathToTemplateCookieImage
-    this.pathToSave = path.resolve() + paths.pathToSaveUpgradedCookieImage
+    this.font = 'Fira Sans'
     this.startProcessAddText()
+    this.maxLengthLineTextPx = 275
+    this.objectsByLineForPrint = []
+    this.pathToTemplate = this.getPath(paths.pathToTemplateCookieImage)
+    this.pathToSave = this.getPath(paths.pathToSaveUpgradedCookieImage)
+  }
+
+  getPath (route) {
+    return path.resolve() + route
   }
 
   startProcessAddText () {
