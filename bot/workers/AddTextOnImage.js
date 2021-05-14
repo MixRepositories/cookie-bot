@@ -15,11 +15,12 @@ class AddTextOnImage {
     this.fontSize = 12
     this.lineHeight = 1.3
     this.font = 'Fira Sans'
-    this.startProcessAddText()
     this.maxLengthLineTextPx = 275
     this.objectsByLineForPrint = []
     this.pathToTemplate = this.getPath(paths.pathToTemplateCookieImage)
     this.pathToSave = this.getPath(paths.pathToSaveUpgradedCookieImage)
+
+    this.startProcessAddText()
   }
 
   getPath (route) {

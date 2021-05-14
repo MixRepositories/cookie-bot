@@ -1,10 +1,10 @@
 const db = require('./db')
-const Bot = require('./bot')
+const bot = require('./bot')
 const server = require('./server')
 
 db
   .then(() => {
-    new Bot()
+    bot.init()
     server()
   })
   .catch(error => {

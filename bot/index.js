@@ -8,14 +8,7 @@ const config = require('config')
 
 class Bot {
   constructor () {
-    if (Bot.exists) { return Bot.instance }
-
     this.token = config.get('tokenBot')
-
-    this.init()
-
-    Bot.instance = this
-    Bot.exists = true
   }
 
   init () {
@@ -48,4 +41,4 @@ class Bot {
   }
 }
 
-module.exports = Bot
+module.exports = new Bot()
